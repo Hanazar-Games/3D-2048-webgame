@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D 2048</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23c9a66b'/><text x='32' y='42' font-size='28' font-family='Arial' font-weight='700' text-anchor='middle' fill='%23f7f3e9'>2048</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://unpkg.com/es-module-shims@1.9.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="ui">
+    <div class="title">Hanazar Presents: 3D 2048</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">得分</div>
+        <div class="value" id="score">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">最高</div>
+        <div class="value" id="best">0</div>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="restart">重新开始</button>
+      <div class="hint">鼠标拖拽旋转视角 · 滚轮缩放 · WASD+QE 方向移动</div>
+    </div>
+  </div>
+  <div id="canvas-container"></div>
+  <div id="toast" class="hidden"></div>
+  <div id="modal" class="hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions" id="modal-actions">
+        <button id="modal-cancel" class="ghost">取消</button>
+        <button id="modal-confirm">重开</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
