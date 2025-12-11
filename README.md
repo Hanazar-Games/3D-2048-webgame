@@ -8,7 +8,7 @@ Play Online:
 
 ---
 
-## 📸 Preview (Add your screenshot here)
+## 📸 Preview 
 
 <img width="688" height="677" alt="image" src="https://github.com/user-attachments/assets/8dd84b4d-b1e2-4045-97a8-7d1fdafd6a16" />
 
