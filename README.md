@@ -1,4 +1,4 @@
-# Hanazar Games | 3D 2048
+<img width="1470" height="810" alt="image" src="https://github.com/user-attachments/assets/28e717d8-2789-430b-b1dd-9de8c7a158e1" /># Hanazar Games | 3D 2048
 
 <div align="center">
 
@@ -41,6 +41,10 @@ This project is currently a **pure static web game**:
 ## Preview
 
 <img width="688" height="677" alt="3D 2048 preview" src="https://github.com/user-attachments/assets/8dd84b4d-b1e2-4045-97a8-7d1fdafd6a16" />
+<img width="1470" height="811" alt="image" src="https://github.com/user-attachments/assets/bc2d31b9-8d03-466e-a2f4-aaf005156d58" />
+<img width="1470" height="810" alt="image" src="https://github.com/user-attachments/assets/ed4635d5-3c3c-48c1-a143-807ac1d20769" />
+<img width="1470" height="811" alt="image" src="https://github.com/user-attachments/assets/c989a995-bc5b-4d33-b7b6-9e98092c69e0" />
+
 
 ---
 
