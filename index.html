@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D 2048</title>
+  <title>Hanazar Games | 3D 2048</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23c9a66b'/><text x='32' y='42' font-size='28' font-family='Arial' font-weight='700' text-anchor='middle' fill='%23f7f3e9'>2048</text></svg>">
   <link rel="stylesheet" href="style.css">
   <script async src="https://unpkg.com/es-module-shims@1.9.0/dist/es-module-shims.js"></script>
@@ -17,36 +17,139 @@
   </script>
 </head>
 <body>
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-glow"></div>
+    <div class="splash-content">
+      <div class="splash-brand" id="splash-brand">Hanazar Games</div>
+      <div class="splash-title" id="splash-title">3D 2048</div>
+      <div class="splash-tagline" id="splash-tagline">Rotate. Merge. Think in volume.</div>
+      <div class="splash-progress">
+        <span class="splash-progress-bar"></span>
+      </div>
+      <div class="splash-loading" id="splash-loading">Loading cube board...</div>
+      <button id="enter-game" class="secondary-button splash-enter" type="button">Enter Game</button>
+    </div>
+  </div>
+
+  <div id="settings-backdrop" class="overlay-backdrop hidden"></div>
+  <aside id="settings-panel" class="settings-panel hidden" aria-label="Game menu">
+    <div class="settings-header">
+      <div>
+        <div class="settings-kicker" id="menu-kicker">Hanazar Games</div>
+        <div class="settings-title" id="menu-title">游戏菜单</div>
+      </div>
+      <button id="settings-close" class="icon-button" type="button" aria-label="Close menu">×</button>
+    </div>
+
+    <div class="menu-frame">
+      <button id="open-rules" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-rules-title">规则</span>
+          <span class="menu-nav-meta" id="menu-rules-meta">查看玩法与操作说明</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-announcements-menu" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-announcements-title">公告</span>
+          <span class="menu-nav-meta" id="menu-announcements-meta">V3.1.1 · 2026-03-24</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-game-settings" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-settings-title">游戏设置</span>
+          <span class="menu-nav-meta" id="menu-settings-meta">操作提示、动画与重开确认</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-preset" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-preset-title">预设</span>
+          <span class="menu-nav-meta" id="menu-preset-meta">娱乐模式 · 默认设置</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-style-picker" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-style-title">样式</span>
+          <span class="menu-nav-meta" id="menu-style-meta">原色（默认） · 浅色</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-language-picker" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-language-title">语言</span>
+          <span class="menu-nav-meta" id="menu-language-meta">简体中文</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-shortcuts" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-shortcuts-title">快捷键</span>
+          <span class="menu-nav-meta" id="menu-shortcuts-meta">移动与功能键自定义</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+
+      <button id="open-about" class="menu-nav-button" type="button">
+        <span class="menu-nav-copy">
+          <span class="menu-nav-title" id="section-about-title">关于</span>
+          <span class="menu-nav-meta" id="menu-about-meta">Hanazar Software · Hanazar Games</span>
+        </span>
+        <span class="menu-nav-arrow">›</span>
+      </button>
+    </div>
+  </aside>
+
   <div id="ui">
-    <div class="title">Hanazar Presents: 3D 2048</div>
+    <div class="brand-block">
+      <button id="menu-toggle" class="menu-button" type="button">菜单</button>
+      <div>
+        <div class="eyebrow" id="brand-eyebrow">Hanazar Games</div>
+        <div class="title" id="brand-title">3D 2048</div>
+      </div>
+    </div>
+
     <div class="stats">
       <div class="stat">
-        <div class="label">得分</div>
+        <div class="label" id="score-label">得分</div>
         <div class="value" id="score">0</div>
       </div>
       <div class="stat">
-        <div class="label">最高</div>
+        <div class="label" id="best-label">最高</div>
         <div class="value" id="best">0</div>
       </div>
     </div>
+
     <div class="controls">
-      <button id="restart">重新开始</button>
-      <div class="hint">鼠标拖拽旋转视角 · 滚轮缩放 · WASD+QE 方向移动</div>
+      <button id="restart" type="button">重新开始</button>
+      <button id="open-announcements-top" class="announcement-button" type="button">公告</button>
+      <div class="hint" id="hint-text">鼠标拖拽旋转视角 · 滚轮缩放 · WASD + QE 方向移动</div>
     </div>
   </div>
+
   <div id="canvas-container"></div>
   <div id="toast" class="hidden"></div>
+
   <div id="modal" class="hidden">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <div class="modal-title" id="modal-title"></div>
       <div class="modal-body" id="modal-body"></div>
       <div class="modal-actions" id="modal-actions">
-        <button id="modal-cancel" class="ghost">取消</button>
-        <button id="modal-confirm">重开</button>
+        <button id="modal-cancel" class="secondary-button" type="button">取消</button>
+        <button id="modal-confirm" type="button">开始</button>
       </div>
     </div>
   </div>
+
   <script type="module" src="main.js"></script>
 </body>
 </html>
