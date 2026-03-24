@@ -4,9 +4,9 @@
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.1.1-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
-[![Release Date](https://img.shields.io/badge/released-2026--03--24-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
-[![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.1.1-c98a3d?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
+[![Release Date](https://img.shields.io/badge/released-2026--03--24-8a5f2a?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
+[![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
 
 </div>
@@ -32,8 +32,8 @@ This project is currently a **pure static web game**:
 
 ## Live Website
 
-- Play Online: [https://hzagaming.github.io/3D-2048-webgame/](https://hzagaming.github.io/3D-2048-webgame/)
-- Repository: [https://github.com/hzagaming/3D-2048-webgame](https://github.com/hzagaming/3D-2048-webgame)
+- Play Online: [https://hzagaming.github.io/3D-2048-webgame/](https://hanazar-games.github.io/3D-2048-webgame/)
+- Repository: [https://github.com/hzagaming/3D-2048-webgame](https://github.com/Hanazar-Games/3D-2048-webgame)
 - GitHub Profile: [https://github.com/hzagaming](https://github.com/hzagaming)
 
 ---
