@@ -1,12 +1,14 @@
-<img width="1470" height="810" alt="image" src="https://github.com/user-attachments/assets/28e717d8-2789-430b-b1dd-9de8c7a158e1" /># Hanazar Games | 3D 2048
+<img width="1470" height="810" alt="image" src="https://github.com/user-attachments/assets/28e717d8-2789-430b-b1dd-9de8c7a158e1" />
+
+# Hanazar Games | 3D 2048
 
 <div align="center">
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.1.1-c98a3d?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
-[![Release Date](https://img.shields.io/badge/released-2026--03--24-8a5f2a?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
-[![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hanazar-games.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.2.1-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Release Date](https://img.shields.io/badge/released-2026--03--25-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
 
 </div>
@@ -32,8 +34,8 @@ This project is currently a **pure static web game**:
 
 ## Live Website
 
-- Play Online: [https://hzagaming.github.io/3D-2048-webgame/](https://hanazar-games.github.io/3D-2048-webgame/)
-- Repository: [https://github.com/hzagaming/3D-2048-webgame](https://github.com/Hanazar-Games/3D-2048-webgame)
+- Play Online: [https://hzagaming.github.io/3D-2048-webgame/](https://hzagaming.github.io/3D-2048-webgame/)
+- Repository: [https://github.com/hzagaming/3D-2048-webgame](https://github.com/hzagaming/3D-2048-webgame)
 - GitHub Profile: [https://github.com/hzagaming](https://github.com/hzagaming)
 
 ---
@@ -79,6 +81,9 @@ This project is currently a **pure static web game**:
 
 - First-visit guide popup
 - One-time update announcement popup
+- Announcement history list with expandable past release details
+- Timer support
+- Competition mode
 - Custom shortcut mapping
 - Preset switching for different play styles
 - Multi-language support
@@ -96,6 +101,7 @@ This project is currently a **pure static web game**:
 - Win popup at `2048`
 - Lose popup when no moves remain
 - Smooth tile transition animation
+- Theme-aware tile visuals
 
 ### Camera and Control
 
@@ -132,6 +138,7 @@ Each section opens in its own modal panel.
 
 #### Professional Mode
 
+- Timer enabled
 - Outer helper frame enabled
 - Tile edge highlight enabled
 - Tile edge thickness set to `3x`
@@ -142,6 +149,16 @@ Each section opens in its own modal panel.
 - Default shortcuts restored
 - Blocked-move toast suppressed
 - Splash title changes to `3D 2048 Professional`
+
+#### Competition Mode
+
+- Built on the professional restrictions
+- Timer forced on
+- Start overlay before board generation
+- `Start` button begins board generation and timing
+- Move animation disabled
+- Camera smoothness fixed to `10%`
+- Only movement shortcuts remain enabled
 
 ### Visual Customization
 
@@ -175,6 +192,7 @@ Each section opens in its own modal panel.
 
 - Move animation speed
 - Camera smoothness
+- Mouse drag sensitivity
 - Reduced motion toggle
 - Intro animation toggle
 
@@ -182,6 +200,7 @@ Each section opens in its own modal panel.
 
 - Show controls hint
 - Confirm before restart
+- Timer toggle
 - Restore all defaults
 
 ### Shortcut Customization
@@ -213,6 +232,8 @@ Shortcut capture supports:
 
 - First-visit auto popup
 - One-time update notice storage
+- Built-in history list for older announcements
+- Expandable details for archived releases
 - Reopen anytime from the top bar or menu
 
 ### About Panel
@@ -287,36 +308,36 @@ The current build includes:
 
 ---
 
-## V3.1.1 Update
+## Latest Update: V3.2.1
 
-**Release Date:** `2026-03-24`  
-**Version:** `V3.1.1`
+**Release Date:** `2026-03-25`
+**Version:** `V3.2.1`
 
-### Major Changes
+### Short Notes
 
-- Rebuilt the site into a more complete game portal instead of a simple prototype page
-- Added a dedicated multi-entry menu system
-- Added one-time announcements and first-visit guide flow
-- Added presets for professional and entertainment play styles
-- Added theme switching, light / dark tone switching, and tile appearance sync
-- Added tile edge highlight, edge thickness control, and helper line controls
-- Added full shortcut customization
-- Added about panel with version, links, and project info
-- Expanded language support
-- Added camera smoothness and mouse drag sensitivity controls
+- Refined the announcement system into a clearer latest-notice plus history-list structure
+- Added expandable detail sections for past announcements
+- Synced version text across the menu, announcement flow, and about panel
+- Tightened result-modal presentation when timer-based run stats are shown
 
-### UX / Visual Improvements
+---
 
-- Intro animation with Hanazar branding
-- Professional splash title variant
-- Better number fitting on large-value tiles
-- Cleaner menu layout
-- Improved theme consistency across the whole site
+## Recent Version History
 
-### Control Fixes
+### V3.2.0
 
-- Disabled accidental `Shift + Drag` panning
-- Improved camera feel with adjustable smoothing and sensitivity
+- Added timer support
+- Added competition mode
+- Added competition start overlay and start button
+- Added result stat cards for win / lose dialogs
+- Added in-site announcement history flow
+
+### V3.1.1
+
+- Rebuilt the project into a fuller game portal
+- Added menu, presets, themes, language switching, shortcuts, and about panel
+- Added first-visit guide and one-time announcement flow
+- Added tile edge controls and helper-line controls
 
 ---
 
@@ -353,8 +374,8 @@ http://127.0.0.1:5500/
 
 ```text
 3D-2048-webgame/
-├── index.html     # page structure, menu entries, modal shell
-├── style.css      # full visual system, themes, panels, motion
+├── index.html     # page structure, menu entries, overlays, modal shell
+├── style.css      # visual system, themes, panels, motion, announcement UI
 ├── main.js        # gameplay, 3D scene, settings, presets, i18n, shortcuts
 └── README.md      # project documentation
 ```
@@ -397,4 +418,4 @@ Copyright © 2026 Hanazar Software / Hanazar Games. All rights reserved.
 
 If you want the shortest possible description:
 
-> **3D 2048** is a stylish browser-based 2048 game set inside a rotatable 4×4×4 cube, with presets, themes, settings, shortcuts, announcements, multilingual UI, and Hanazar-branded presentation.
+> **3D 2048** is a stylish browser-based 2048 game set inside a rotatable 4×4×4 cube, with presets, themes, timer support, competition mode, shortcut rebinding, in-site announcements, multilingual UI, and Hanazar-branded presentation.
