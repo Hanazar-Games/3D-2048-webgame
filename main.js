@@ -12,14 +12,15 @@ const SETTINGS_KEY = "settings3D2048";
 const KEYBINDINGS_KEY = "keybindings3D2048";
 const LANGUAGE_KEY = "language3D2048";
 const GUIDE_KEY = "guideSeen3D2048";
-const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.1.1";
-const APP_VERSION = "V3.1.1";
-const RELEASE_DATE = "2026-03-24";
+const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.1";
+const APP_VERSION = "V3.2.1";
+const RELEASE_DATE = "2026-03-25";
 const DEFAULT_SETTINGS = {
   showHints: true,
   reducedMotion: false,
   confirmRestart: true,
   showSplash: true,
+  showTimer: false,
   animationSpeed: 1,
   cameraSmoothness: 75,
   dragSensitivity: 5,
@@ -217,6 +218,7 @@ const SETTINGS_CONFIG = [
   { key: "confirmRestart", labelKey: "settingRestart", copyKey: "settingRestartCopy", group: "general" },
   { key: "reducedMotion", labelKey: "settingMotion", copyKey: "settingMotionCopy", group: "animation" },
   { key: "showSplash", labelKey: "settingSplash", copyKey: "settingSplashCopy", group: "animation" },
+  { key: "showTimer", labelKey: "settingTimer", copyKey: "settingTimerCopy", group: "timer" },
 ];
 const LIVE_SITE_URL = "https://hzagaming.github.io/3D-2048-webgame/";
 const GITHUB_PROFILE_URL = "https://github.com/hzagaming";
@@ -238,6 +240,17 @@ const DEFAULT_KEYBINDINGS = {
   openShortcuts: "k",
   openAbout: "b",
 };
+const COMPETITION_KEYBINDINGS = {
+  ...DEFAULT_KEYBINDINGS,
+  openMenu: "",
+  restart: "",
+  openRules: "",
+  openGameSettings: "",
+  openStyle: "",
+  openLanguage: "",
+  openShortcuts: "",
+  openAbout: "",
+};
 
 const STRINGS = {
   "zh-CN": {
@@ -257,30 +270,83 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "这是 3D 2048 的 V3.1.1 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
+    announcementsModalIntro: "这是 3D 2048 的 V3.2.1 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
     announcementsDateLabel: "发布日期",
     announcementsVersionLabel: "版本号",
+    announcementsHistoryTitle: "往期公告",
+    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
+    announcementsHistoryAction: "查看往期公告列表",
+    announcementsArchiveTitle: "往期公告",
+    announcementsArchiveBack: "返回当前公告",
     announcementsBody: `
-      <div class="picker-layout">
-        <div class="picker-card">
-          <div class="picker-grid-title">Version</div>
-          <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
-          <p class="picker-card-copy">${RELEASE_DATE}</p>
-          <p class="about-copy">这次更新主要把菜单、设置和可玩性都重新整理了一遍，整站已经不再只是一个基础可玩 demo。</p>
+      <div class="picker-card">
+        <div class="picker-grid-title">Version</div>
+        <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
+        <p class="picker-card-copy">${RELEASE_DATE}</p>
+        <p class="about-copy">这一版是一次修复与整理更新，重点把公告结构、结果反馈和版本同步信息收得更清楚。</p>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">本次更新内容</div>
+        <ul class="modal-list">
+          <li>修复胜利与失败弹窗，计时开启时会更稳定地显示用时、分数和最高分。</li>
+          <li>公告系统改成“当前公告 + 往期公告列表”，历史版本查看更直接。</li>
+          <li>同步修正公告版本号、菜单入口版本文案和关于页版本信息。</li>
+        </ul>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">说明</div>
+        <p class="about-copy">V3.2.1 主要是把上一版功能补上更完整的展示和归档，不新增大功能，重点做修复和整理。</p>
+      </div>
+    `,
+    announcementsArchiveBody: `
+      <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.0</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">计时器、竞赛模式、结果数据弹窗和公告历史系统首次接入站点。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>新增计时器系统，并接入专业模式与竞赛模式。</li>
+                <li>新增竞赛模式：开始遮罩、开始按钮、移动专用快捷键和无移动动画。</li>
+                <li>新增视角滑动流畅度与鼠标拖拽灵敏度设置。</li>
+                <li>胜利与失败弹窗首次加入用时、分数和最高分结算展示。</li>
+              </ul>
+            </div>
+          </details>
         </div>
-        <div class="picker-card">
-          <div class="picker-grid-title">本次更新内容</div>
-          <ul class="modal-list">
-            <li>新增完整菜单体系：规则、公告、预设、样式、语言、快捷键、关于全部独立弹窗。</li>
-            <li>新增专业模式 / 娱乐模式预设，并支持辅助线、描边粗细、动画速度等细项调整。</li>
-            <li>新增快捷键自定义，可改移动键和菜单、规则、重开、设置等功能键。</li>
-            <li>新增多主题、多语言、首次引导、开场动画与 Professional 专业版标题切换。</li>
-            <li>优化 3D 方块显示：数字缩放更稳，方块描边和辅助线可调，视觉层次更清楚。</li>
-          </ul>
-        </div>
-        <div class="picker-card">
-          <div class="picker-grid-title">说明</div>
-          <p class="about-copy">当前版本重点是把这个项目从“单次试玩原型”推进到“可持续调设置、可持续扩展”的正式站点形态。后续版本会继续补更深的 UI 打磨、交互细节和玩法扩展。</p>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.1.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-24</div>
+          </div>
+          <p class="announcement-archive-copy">菜单、预设、样式、语言、快捷键与关于信息整体上线，站点从试玩原型升级成完整界面版本。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>完整菜单体系首次上线：规则、公告、预设、样式、语言、快捷键、关于全部独立弹窗化。</li>
+                <li>新增专业模式与娱乐模式预设，以及辅助线、描边粗细、动画速度等细项控制。</li>
+                <li>新增多主题、多语言、首次引导、开场动画与 Professional 标题切换。</li>
+                <li>3D 方块数字缩放、描边和辅助线显示优化，整体可读性明显提升。</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </div>
     `,
@@ -291,11 +357,14 @@ const STRINGS = {
     presetModalTitle: "设置预设",
     presetModalIntro: "快速切换一组常用设置和默认快捷键。预设不会改主题颜色，只会按要求调整辅助线与方块描边。",
     presetProfessionalLabel: "专业模式",
-    presetProfessionalCopy: "开启外框辅助线，方块描边调到 3x，关闭操作提示与无法移动提示，开启减弱动画，视角滑动流畅度设为 25%，保留开场动画并把标题切到 Professional 版，所有快捷键恢复默认。",
+    presetProfessionalCopy: "开启外框辅助线，方块描边调到 3x，关闭操作提示与无法移动提示，开启减弱动画，视角滑动流畅度设为 25%，启用计时器，保留开场动画并把标题切到 Professional 版，所有快捷键恢复默认。",
+    presetCompetitionLabel: "竞赛模式",
+    presetCompetitionCopy: "保留专业模式的核心限制，关闭全部移动动画，视角滑动流畅度固定为 10%，计时器开启，生成开始遮罩，且除移动外的快捷键全部禁用。",
     presetEntertainmentLabel: "娱乐模式",
     presetEntertainmentCopy: "恢复默认玩法设置和默认快捷键，不改当前主题颜色。辅助线和方块描边会回到默认状态。",
     presetCustomLabel: "自定义",
-    presetProfessionalMeta: "外框辅助线 · 3x 描边 · Professional",
+    presetProfessionalMeta: "外框辅助线 · 计时开启 · Professional",
+    presetCompetitionMeta: "计时开启 · 无动画 · 开始遮罩",
     presetEntertainmentMeta: "默认设置 · 默认快捷键",
     presetCustomMeta: "当前配置已偏离预设",
     presetApply: "应用预设",
@@ -309,6 +378,8 @@ const STRINGS = {
     settingRestartCopy: "点击重新开始时先弹出确认，避免误触直接清空当前棋盘。",
     settingSplash: "显示开场动画",
     settingSplashCopy: "进入网站时播放 Hanazar Games 与 3D 2048 的开场片头。",
+    settingTimer: "启用计时器",
+    settingTimerCopy: "在顶部显示当前局计时。普通模式下从第一次有效移动开始计时，竞赛模式下从点击开始按钮时计时。",
     languageTitle: "语言",
     shortcutsTitle: "快捷键",
     shortcutsSummary: "移动与功能键自定义",
@@ -359,8 +430,9 @@ const STRINGS = {
     settingsModalTitle: "游戏设置",
     settingsModalIntro: "把常用功能拆开整理。开关即时生效，动画速度支持拖动和直接输入。",
     settingsGeneralTitle: "基础",
-    settingsSessionTitle: "流程",
     settingsAnimationTitle: "动画",
+    settingsTimerTitle: "计时器",
+    settingsTimerIntro: "控制顶部计时显示与计时逻辑。竞赛模式会强制开启计时，并在点击开始后正式起表。",
     settingsAnimationIntro: "控制移动区域的节奏和过渡表现，下面的速度调节会同时影响滑动与生成动画。",
     animationSpeedLabel: "移动区域动画速度",
     animationSpeedCopy: "1.00x 为标准速度。数值越高越快，越低越慢；支持拖动滑条或直接输入。",
@@ -410,6 +482,13 @@ const STRINGS = {
     aboutProfileLink: "GitHub 作者主页",
     aboutRepoLink: "项目开源仓库",
     aboutLiveLink: "在线网站地址",
+    timerLabel: "计时",
+    resultTimeLabel: "用时",
+    resultTimeUnit: "秒",
+    competitionStartKicker: "竞赛模式",
+    competitionStartTitle: "准备开始",
+    competitionStartCopy: "点击开始后才会生成棋盘，并从这一刻正式开始计时。",
+    competitionStartButton: "开始",
     splashBrand: "Hanazar Games",
     splashTitle: "3D 2048",
     splashProfessionalSuffix: "Professional",
@@ -476,8 +555,7 @@ const STRINGS = {
     winConfirm: "继续",
     winCancel: "重新开始",
     gameOverTitle: "游戏结束",
-    gameOverBody: (score, best) =>
-      `<p>你的分数：<strong>${score}</strong></p><p>当前最高分：<strong>${best}</strong></p><p>现在没有任何可用移动了。</p>`,
+    gameOverBody: () => `<p>现在没有任何可用移动了。你可以直接重新开始，或者先看一下这局的结算数据。</p>`,
     gameOverConfirm: "重新开始",
     gameOverCancel: "关闭",
   },
@@ -498,30 +576,83 @@ const STRINGS = {
     announcementsTitle: "Announcements",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "Update Announcements",
-    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.1.1. It appears automatically on the first visit, then only when opened manually.",
+    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.2.1. It appears automatically on the first visit, then only when opened manually.",
     announcementsDateLabel: "Release Date",
     announcementsVersionLabel: "Version",
+    announcementsHistoryTitle: "Past Announcements",
+    announcementsHistoryCopy: "Open the announcement history list to review the V3.2.0 timing and competition update, plus the earlier V3.1.1 site refresh.",
+    announcementsHistoryAction: "View Announcement History",
+    announcementsArchiveTitle: "Past Announcements",
+    announcementsArchiveBack: "Back to Current Announcement",
     announcementsBody: `
-      <div class="picker-layout">
-        <div class="picker-card">
-          <div class="picker-grid-title">Version</div>
-          <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
-          <p class="picker-card-copy">${RELEASE_DATE}</p>
-          <p class="about-copy">This update turns the project from a simple playable prototype into a more fully configurable game site.</p>
+      <div class="picker-card">
+        <div class="picker-grid-title">Version</div>
+        <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
+        <p class="picker-card-copy">${RELEASE_DATE}</p>
+        <p class="about-copy">This is a short fix-and-polish release focused on announcement structure, result feedback, and version sync.</p>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">What changed</div>
+        <ul class="modal-list">
+          <li>Win and loss dialogs now present time, score, and best score more cleanly when the timer is enabled.</li>
+          <li>The announcement system now uses a clearer “current notice + history list” structure.</li>
+          <li>Announcement version labels, menu version text, and about-page version info were synchronized.</li>
+        </ul>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">Notes</div>
+        <p class="about-copy">V3.2.1 does not add a major new mode. It mainly tightens presentation, fixes mismatched version details, and makes the release history easier to browse.</p>
+      </div>
+    `,
+    announcementsArchiveBody: `
+      <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.0</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">Timer support, competition mode, result stat dialogs, and built-in announcement history first landed here.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>The timer system was added and wired into professional mode and competition mode.</li>
+                <li>Competition mode introduced a start gate, start button, movement-only shortcuts, and zero move animation.</li>
+                <li>Camera smoothness and mouse drag sensitivity were added as new control settings.</li>
+                <li>Win and loss dialogs first gained elapsed time, score, and best-score result summaries.</li>
+              </ul>
+            </div>
+          </details>
         </div>
-        <div class="picker-card">
-          <div class="picker-grid-title">What changed</div>
-          <ul class="modal-list">
-            <li>A full menu system now exists for rules, announcements, presets, style, language, shortcuts, and about.</li>
-            <li>Professional and entertainment presets were added, along with controls for guide lines, edge thickness, and animation speed.</li>
-            <li>Shortcut customization now covers both movement keys and utility actions such as menu, restart, rules, and settings.</li>
-            <li>The site now includes more themes, more languages, a first-time guide, an intro sequence, and a Professional splash title variant.</li>
-            <li>Tile rendering was refined with better number fitting, adjustable outlines, and clearer visual guidance.</li>
-          </ul>
-        </div>
-        <div class="picker-card">
-          <div class="picker-grid-title">Notes</div>
-          <p class="about-copy">V3.1.1 focuses on making the project easier to configure, easier to understand, and better prepared for future UI and gameplay updates.</p>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.1.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-24</div>
+          </div>
+          <p class="announcement-archive-copy">This was the big site refresh that introduced menus, presets, themes, languages, shortcuts, and the broader configurable UI layer.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>The full menu structure for rules, announcements, presets, style, language, shortcuts, and about first went live.</li>
+                <li>Professional and entertainment presets were added alongside helper-line, outline, and animation controls.</li>
+                <li>Multi-theme support, multi-language support, first-visit guidance, and intro animation flow were introduced.</li>
+                <li>Tile readability improved through better number fitting, adjustable outlines, and clearer helper lines.</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </div>
     `,
@@ -532,11 +663,14 @@ const STRINGS = {
     presetModalTitle: "Preset Setup",
     presetModalIntro: "Switch between ready-made setup bundles and default keybindings. Presets do not change the current theme colors; only guide lines and tile edges are adjusted when required.",
     presetProfessionalLabel: "Professional Mode",
-    presetProfessionalCopy: "Outer frame guides on, tile edge thickness set to 3x, controls hint and blocked-move notice off, reduced motion on, camera smoothness set to 25%, intro animation kept with a Professional title, and all shortcuts reset to default.",
+    presetProfessionalCopy: "Outer frame guides on, tile edge thickness set to 3x, controls hint and blocked-move notice off, reduced motion on, camera smoothness set to 25%, timer enabled, intro animation kept with a Professional title, and all shortcuts reset to default.",
+    presetCompetitionLabel: "Competition Mode",
+    presetCompetitionCopy: "Keeps the professional restrictions, removes all movement animation, locks camera smoothness to 10%, turns the timer on, adds a start gate before board generation, and disables every shortcut except movement.",
     presetEntertainmentLabel: "Entertainment Mode",
     presetEntertainmentCopy: "Restore the default gameplay setup and default shortcuts without changing the current theme colors. Guide lines and tile edge settings return to their default values.",
     presetCustomLabel: "Custom",
-    presetProfessionalMeta: "Outer frame · 3x edges · Professional",
+    presetProfessionalMeta: "Outer frame · timer on · Professional",
+    presetCompetitionMeta: "Timer on · no animation · start gate",
     presetEntertainmentMeta: "Default setup · Default shortcuts",
     presetCustomMeta: "Current setup differs from presets",
     presetApply: "Apply Preset",
@@ -549,6 +683,8 @@ const STRINGS = {
     settingRestartCopy: "Ask for confirmation before a restart clears the current run.",
     settingSplash: "Show intro animation",
     settingSplashCopy: "Play the Hanazar Games intro sequence before entering the game.",
+    settingTimer: "Enable timer",
+    settingTimerCopy: "Show a run timer in the top bar. Standard play starts timing from the first valid move, while competition mode starts on the Start button.",
     languageTitle: "Language",
     shortcutsTitle: "Shortcuts",
     shortcutsSummary: "Custom movement and utility keys",
@@ -599,8 +735,9 @@ const STRINGS = {
     settingsModalTitle: "Game Settings",
     settingsModalIntro: "Core controls are grouped here. Toggles apply immediately, and animation speed supports both drag and direct input.",
     settingsGeneralTitle: "General",
-    settingsSessionTitle: "Session",
     settingsAnimationTitle: "Animation",
+    settingsTimerTitle: "Timer",
+    settingsTimerIntro: "Control the run timer display and timing behavior. Competition mode forces the timer on and starts it only after pressing Start.",
     settingsAnimationIntro: "Tune how quickly tiles move through space. The speed control affects both slide and spawn transitions.",
     animationSpeedLabel: "Move Animation Speed",
     animationSpeedCopy: "1.00x is the default pace. Higher is faster, lower is slower. Drag or type a value directly.",
@@ -650,6 +787,13 @@ const STRINGS = {
     aboutProfileLink: "GitHub Profile",
     aboutRepoLink: "Open-source Repository",
     aboutLiveLink: "Live Website",
+    timerLabel: "Timer",
+    resultTimeLabel: "Time Used",
+    resultTimeUnit: "s",
+    competitionStartKicker: "Competition Mode",
+    competitionStartTitle: "Ready to Start",
+    competitionStartCopy: "The board will only be generated after pressing Start, and the timer begins from that exact moment.",
+    competitionStartButton: "Start",
     splashBrand: "Hanazar Games",
     splashTitle: "3D 2048",
     splashProfessionalSuffix: "Professional",
@@ -716,8 +860,7 @@ const STRINGS = {
     winConfirm: "Keep Going",
     winCancel: "Restart",
     gameOverTitle: "Game Over",
-    gameOverBody: (score, best) =>
-      `<p>Your score: <strong>${score}</strong></p><p>Best score: <strong>${best}</strong></p><p>No valid move remains.</p>`,
+    gameOverBody: () => `<p>No valid move remains. You can restart right away, or pause here and review the run stats first.</p>`,
     gameOverConfirm: "Restart",
     gameOverCancel: "Close",
   },
@@ -745,6 +888,8 @@ const STRINGS = {
     settingRestartCopy: "リスタート時に確認を出し、誤操作で盤面を消さないようにします。",
     settingSplash: "オープニング演出を表示",
     settingSplashCopy: "ゲーム開始前に Hanazar Games のイントロ演出を表示します。",
+    settingTimer: "タイマーを有効化",
+    settingTimerCopy: "上部にプレイ時間を表示します。通常は最初の有効移動から、競技モードでは開始ボタンから計測します。",
     languageTitle: "言語",
     langZh: "简体中文",
     langEn: "English",
@@ -770,12 +915,18 @@ const STRINGS = {
     settingsModalTitle: "ゲーム設定",
     settingsModalIntro: "よく使う項目を分けて整理しています。変更はすぐ反映され、速度はドラッグでも直接入力でも調整できます。",
     settingsGeneralTitle: "基本",
-    settingsSessionTitle: "進行",
     settingsAnimationTitle: "アニメーション",
+    settingsTimerTitle: "タイマー",
+    settingsTimerIntro: "タイマー表示と計測の開始方法を調整します。競技モードではタイマーが強制的に有効になります。",
     settingsAnimationIntro: "タイルの移動と出現のテンポを調整します。下の速度設定は両方に反映されます。",
     animationSpeedLabel: "移動アニメーション速度",
     animationSpeedCopy: "1.00x が標準です。大きいほど速く、小さいほどゆっくりになります。",
     animationSpeedShort: (speed) => `速度 ${speed}`,
+    timerLabel: "タイマー",
+    competitionStartKicker: "競技モード",
+    competitionStartTitle: "開始準備完了",
+    competitionStartCopy: "開始ボタンを押した瞬間に盤面が生成され、そこからタイマーが動き始めます。",
+    competitionStartButton: "開始",
     dragSensitivityLabel: "マウスドラッグ感度",
     dragSensitivityCopy: "視点を回転するときのマウスドラッグ感度を調整します。1 は穏やか、10 は最も敏感です。",
     styleModalTitle: "スタイル設定",
@@ -1039,26 +1190,83 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "這是 3D 2048 的 V3.1.1 一次性更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
+    announcementsModalIntro: "這是 3D 2048 的 V3.2.1 一次性更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
     announcementsDateLabel: "發布日期",
     announcementsVersionLabel: "版本號",
+    announcementsHistoryTitle: "往期公告",
+    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
+    announcementsHistoryAction: "查看往期公告列表",
+    announcementsArchiveTitle: "往期公告",
+    announcementsArchiveBack: "返回目前公告",
     announcementsBody: `
-      <div class="picker-layout">
-        <div class="picker-card">
-          <div class="picker-grid-title">Version</div>
-          <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
-          <p class="picker-card-copy">${RELEASE_DATE}</p>
-          <p class="about-copy">這次更新把專案從單純可玩的原型，推進成更完整、可調整、可持續擴展的遊戲站點。</p>
+      <div class="picker-card">
+        <div class="picker-grid-title">Version</div>
+        <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
+        <p class="picker-card-copy">${RELEASE_DATE}</p>
+        <p class="about-copy">這一版是一次修復與整理更新，重點把公告結構、結果回饋與版本同步資訊收得更清楚。</p>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">本次更新內容</div>
+        <ul class="modal-list">
+          <li>修復勝利與失敗彈窗，計時開啟時會更穩定地顯示用時、分數與最高分。</li>
+          <li>公告系統改成「目前公告 + 往期公告列表」，歷史版本查看更直接。</li>
+          <li>同步修正公告版本號、選單入口版本文案與關於頁版本資訊。</li>
+        </ul>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">說明</div>
+        <p class="about-copy">V3.2.1 不新增大型玩法，主要是把上一版功能的展示、歸檔與細節修正收完整。</p>
+      </div>
+    `,
+    announcementsArchiveBody: `
+      <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.0</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">計時器、競賽模式、結果資料彈窗和站內公告歷史系統首次接入站點。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>新增計時器系統，並接入專業模式與競賽模式。</li>
+                <li>新增競賽模式：開始遮罩、開始按鈕、移動專用快捷鍵與無移動動畫。</li>
+                <li>新增視角滑動流暢度與滑鼠拖曳靈敏度設定。</li>
+                <li>勝利與失敗彈窗首次加入用時、分數與最高分結算展示。</li>
+              </ul>
+            </div>
+          </details>
         </div>
-        <div class="picker-card">
-          <div class="picker-grid-title">本次更新內容</div>
-          <ul class="modal-list">
-            <li>新增完整選單結構：規則、公告、預設、樣式、語言、快捷鍵、關於皆為獨立彈窗。</li>
-            <li>新增專業模式 / 娛樂模式預設，並可調整輔助線、描邊粗細、動畫速度等細項。</li>
-            <li>新增快捷鍵自訂，可修改移動鍵與選單、規則、重開、設定等功能鍵。</li>
-            <li>新增多主題、多語言、首次引導、開場動畫，以及 Professional 專業版標題切換。</li>
-            <li>優化 3D 方塊顯示：數字縮放更穩，方塊描邊與輔助線可調，畫面辨識度更高。</li>
-          </ul>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.1.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-24</div>
+          </div>
+          <p class="announcement-archive-copy">選單、預設、樣式、語言、快捷鍵與關於資訊整體上線，站點從試玩原型升級成完整介面版本。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>完整選單體系首次上線：規則、公告、預設、樣式、語言、快捷鍵、關於全部獨立彈窗化。</li>
+                <li>新增專業模式與娛樂模式預設，以及輔助線、描邊粗細、動畫速度等細項控制。</li>
+                <li>新增多主題、多語言、首次引導、開場動畫與 Professional 標題切換。</li>
+                <li>3D 方塊數字縮放、描邊與輔助線顯示優化，整體可讀性提升。</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </div>
     `,
@@ -1069,11 +1277,14 @@ const STRINGS = {
     presetModalTitle: "預設設定",
     presetModalIntro: "快速切換常用設定組合與預設快捷鍵。預設不會更改目前主題顏色，只會依需求調整輔助線與方塊描邊。",
     presetProfessionalLabel: "專業模式",
-    presetProfessionalCopy: "開啟外框輔助線，方塊描邊調到 3x，關閉操作提示與無法移動提示，啟用減弱動畫，視角滑動流暢度設為 25%，保留開場動畫並把標題切成 Professional 版，所有快捷鍵恢復預設。",
+    presetProfessionalCopy: "開啟外框輔助線，方塊描邊調到 3x，關閉操作提示與無法移動提示，啟用減弱動畫，視角滑動流暢度設為 25%，啟用計時器，保留開場動畫並把標題切成 Professional 版，所有快捷鍵恢復預設。",
+    presetCompetitionLabel: "競賽模式",
+    presetCompetitionCopy: "保留專業模式的核心限制，關閉全部移動動畫，視角滑動流暢度固定為 10%，計時器開啟，加入開始遮罩，且除移動外的快捷鍵全部停用。",
     presetEntertainmentLabel: "娛樂模式",
     presetEntertainmentCopy: "恢復預設玩法設定與預設快捷鍵，不改目前主題顏色。輔助線與方塊描邊會回到預設狀態。",
     presetCustomLabel: "自訂",
-    presetProfessionalMeta: "外框輔助線 · 3x 描邊 · Professional",
+    presetProfessionalMeta: "外框輔助線 · 計時開啟 · Professional",
+    presetCompetitionMeta: "計時開啟 · 無動畫 · 開始遮罩",
     presetEntertainmentMeta: "預設設定 · 預設快捷鍵",
     presetCustomMeta: "目前配置已偏離預設",
     presetApply: "套用預設",
@@ -1086,6 +1297,8 @@ const STRINGS = {
     settingRestartCopy: "重新開始前先跳出確認，避免誤觸直接清空當前棋盤。",
     settingSplash: "顯示開場動畫",
     settingSplashCopy: "進站時播放 Hanazar Games 與 3D 2048 的開場片頭。",
+    settingTimer: "啟用計時器",
+    settingTimerCopy: "在頂部顯示本局計時。一般模式會在第一次有效移動後開始，競賽模式則從按下開始按鈕後開始。",
 shortcutsTitle: "快捷鍵",
 shortcutsSummary: "移動與功能鍵自訂",
 shortcutsModalTitle: "快捷鍵設定",
@@ -1129,6 +1342,14 @@ shortcutUnassigned: "未設定",
     toastRestarted: "已重新開始",
     toastBlocked: "該方向無法移動",
     toastLanguage: "語言已切換",
+    winTitle: "你達到 2048 了",
+    winBody: `<p>基礎目標已完成。你可以繼續往更高數字推進，或重新開始挑戰更有效率的開局。</p>`,
+    winConfirm: "繼續",
+    winCancel: "重新開始",
+    gameOverTitle: "遊戲結束",
+    gameOverBody: () => `<p>現在已經沒有任何可用移動。你可以直接重新開始，或先看一下這局的結算資料。</p>`,
+    gameOverConfirm: "重新開始",
+    gameOverCancel: "關閉",
     settingsModalTitle: "遊戲設定",
     settingsModalIntro: "把常用功能分區整理。開關即時生效，動畫速度支援拖動與直接輸入。",
     styleModalTitle: "樣式設定",
@@ -1148,7 +1369,8 @@ shortcutUnassigned: "未設定",
     languageModalIntro: "選擇你要顯示的介面語言，切換後會立即更新整個頁面。",
     settingsAnimationTitle: "動畫",
     settingsGeneralTitle: "基礎",
-    settingsSessionTitle: "流程",
+    settingsTimerTitle: "計時器",
+    settingsTimerIntro: "控制頂部計時顯示與起表邏輯。競賽模式會強制開啟計時，並在點擊開始後才正式計時。",
     settingsAnimationIntro: "控制移動區域的節奏與過渡表現，下面的速度設定會同時影響滑動與生成動畫。",
     animationSpeedLabel: "移動區域動畫速度",
     animationSpeedCopy: "1.00x 為標準速度。數值越高越快，越低越慢。",
@@ -1170,6 +1392,13 @@ shortcutUnassigned: "未設定",
     aboutSummary: "Hanazar Software · 開源與版權資訊",
     aboutVersionTitle: "版本資訊",
     aboutVersionCopy: `目前版本：${APP_VERSION} · 發布日期：${RELEASE_DATE}`,
+    timerLabel: "計時",
+    resultTimeLabel: "用時",
+    resultTimeUnit: "秒",
+    competitionStartKicker: "競賽模式",
+    competitionStartTitle: "準備開始",
+    competitionStartCopy: "按下開始後才會生成棋盤，並從那一刻正式開始計時。",
+    competitionStartButton: "開始",
     splashProfessionalSuffix: "Professional",
   },
   ko: {
@@ -1368,25 +1597,42 @@ const LANGUAGE_ENHANCEMENTS = {
   ja: {
     announcementsTitle: "お知らせ",
     announcementsModalTitle: "更新のお知らせ",
+    announcementsHistoryTitle: "過去のお知らせ",
+    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.0 のタイマー・競技モード更新と、さらに前の V3.1.1 サイト刷新内容を確認できます。",
+    announcementsHistoryAction: "履歴一覧を見る",
+    announcementsArchiveTitle: "過去のお知らせ",
+    announcementsArchiveBack: "現在のお知らせへ戻る",
     presetTitle: "プリセット",
     presetModalTitle: "プリセット設定",
     presetProfessionalLabel: "プロフェッショナルモード",
+    presetCompetitionLabel: "競技モード",
     presetEntertainmentLabel: "エンタメモード",
     presetCustomLabel: "カスタム",
     presetProfessionalMeta: "外枠ガイド · 3x エッジ · Professional",
+    presetCompetitionMeta: "タイマー有効 · 無アニメーション · 開始ゲート",
     presetEntertainmentMeta: "標準設定 · 標準キー",
     presetCustomMeta: "現在の設定はプリセット外です",
+    presetCompetitionCopy: "プロモードの制限を保ったまま、移動アニメーションを完全に無効化し、カメラの滑らかさを 10% に固定し、開始ボタンで盤面生成とタイマー開始を行います。",
     shortcutsTitle: "ショートカット",
     shortcutsModalTitle: "ショートカット設定",
     aboutTitle: "情報",
     aboutModalTitle: "Hanazar Games について",
     aboutVersionTitle: "バージョン情報",
     aboutSummary: "Hanazar Software · 権利とオープンソース",
+    settingTimer: "タイマーを有効化",
+    settingsTimerTitle: "タイマー",
     cameraSmoothnessLabel: "カメラの滑らかさ",
     cameraSmoothnessCopy: "0% ではマウス位置へ即座に追従し、100% では最大限になめらかに追従します。",
     cameraSmoothnessShort: (value) => `滑らかさ ${value}`,
     dragSensitivityLabel: "マウスドラッグ感度",
     dragSensitivityCopy: "視点を回転するときのマウスドラッグ感度を調整します。1 は穏やか、10 は最も敏感です。",
+    timerLabel: "タイマー",
+    resultTimeLabel: "経過時間",
+    resultTimeUnit: "秒",
+    competitionStartKicker: "競技モード",
+    competitionStartTitle: "開始準備完了",
+    competitionStartCopy: "開始ボタンを押した瞬間に盤面が生成され、そこからタイマーが動き始めます。",
+    competitionStartButton: "開始",
     resetDefaultsTitle: "すべて初期化",
     resetDefaultsAction: "初期化する",
   },
@@ -1396,9 +1642,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Preajustes",
     presetModalTitle: "Preajustes",
     presetProfessionalLabel: "Modo Profesional",
+    presetCompetitionLabel: "Modo Competición",
     presetEntertainmentLabel: "Modo Entretenimiento",
     presetCustomLabel: "Personalizado",
     presetProfessionalMeta: "Marco exterior · borde 3x · Professional",
+    presetCompetitionMeta: "Temporizador activo · sin animación · salida controlada",
     presetEntertainmentMeta: "Predeterminado · atajos por defecto",
     presetCustomMeta: "Configuración actual personalizada",
     shortcutsTitle: "Atajos",
@@ -1407,6 +1655,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Acerca de Hanazar Games",
     aboutVersionTitle: "Versión",
     aboutSummary: "Hanazar Software · Derechos y código abierto",
+    settingTimer: "Activar temporizador",
+    settingsTimerTitle: "Temporizador",
     settingsModalTitle: "Configuración",
     settingsGeneralTitle: "Básico",
     settingsAnimationTitle: "Animación",
@@ -1418,6 +1668,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Suave ${value}`,
     dragSensitivityLabel: "Sensibilidad de Arrastre",
     dragSensitivityCopy: "Ajusta la sensibilidad del arrastre del ratón al rotar la cámara. 1 es más estable y 10 es el más sensible.",
+    timerLabel: "Tiempo",
+    competitionStartKicker: "Modo Competición",
+    competitionStartTitle: "Listo para Empezar",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Restaurar Todo",
     resetDefaultsAction: "Restaurar",
     optionOn: "Activado",
@@ -1429,9 +1683,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Préréglages",
     presetModalTitle: "Préréglages",
     presetProfessionalLabel: "Mode Professionnel",
+    presetCompetitionLabel: "Mode Compétition",
     presetEntertainmentLabel: "Mode Divertissement",
     presetCustomLabel: "Personnalisé",
     presetProfessionalMeta: "Cadre extérieur · contour 3x · Professional",
+    presetCompetitionMeta: "Minuteur actif · sans animation · départ contrôlé",
     presetEntertainmentMeta: "Par défaut · raccourcis par défaut",
     presetCustomMeta: "Configuration personnalisée",
     shortcutsTitle: "Raccourcis",
@@ -1440,6 +1696,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "À propos de Hanazar Games",
     aboutVersionTitle: "Version",
     aboutSummary: "Hanazar Software · Droits et source ouverte",
+    settingTimer: "Activer le minuteur",
+    settingsTimerTitle: "Minuteur",
     settingsModalTitle: "Paramètres du Jeu",
     settingsGeneralTitle: "Base",
     settingsAnimationTitle: "Animation",
@@ -1451,6 +1709,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Fluide ${value}`,
     dragSensitivityLabel: "Sensibilité du Glisser",
     dragSensitivityCopy: "Ajuste la sensibilité du glisser de la souris lors de la rotation de la caméra. 1 est plus stable, 10 est le plus réactif.",
+    timerLabel: "Temps",
+    competitionStartKicker: "Mode Compétition",
+    competitionStartTitle: "Prêt à Démarrer",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Tout Réinitialiser",
     resetDefaultsAction: "Réinitialiser",
     optionOn: "Activé",
@@ -1462,9 +1724,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Voreinstellungen",
     presetModalTitle: "Voreinstellungen",
     presetProfessionalLabel: "Profi-Modus",
+    presetCompetitionLabel: "Wettkampfmodus",
     presetEntertainmentLabel: "Unterhaltungsmodus",
     presetCustomLabel: "Benutzerdefiniert",
     presetProfessionalMeta: "Außenrahmen · 3x Kanten · Professional",
+    presetCompetitionMeta: "Timer an · keine Animation · Start-Gate",
     presetEntertainmentMeta: "Standard · Standard-Tasten",
     presetCustomMeta: "Aktuelle Konfiguration",
     shortcutsTitle: "Tastenkürzel",
@@ -1473,6 +1737,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Über Hanazar Games",
     aboutVersionTitle: "Version",
     aboutSummary: "Hanazar Software · Rechte und Open Source",
+    settingTimer: "Timer aktivieren",
+    settingsTimerTitle: "Timer",
     settingsModalTitle: "Spieleinstellungen",
     settingsGeneralTitle: "Grundlagen",
     settingsAnimationTitle: "Animation",
@@ -1484,6 +1750,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Glatt ${value}`,
     dragSensitivityLabel: "Maus-Ziehempfindlichkeit",
     dragSensitivityCopy: "Passt die Empfindlichkeit beim Ziehen mit der Maus zur Kameradrehung an. 1 ist ruhiger, 10 am empfindlichsten.",
+    timerLabel: "Zeit",
+    competitionStartKicker: "Wettkampfmodus",
+    competitionStartTitle: "Bereit zum Start",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Alles Zurücksetzen",
     resetDefaultsAction: "Zurücksetzen",
     optionOn: "Ein",
@@ -1495,9 +1765,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "프리셋",
     presetModalTitle: "프리셋",
     presetProfessionalLabel: "프로 모드",
+    presetCompetitionLabel: "경쟁 모드",
     presetEntertainmentLabel: "엔터테인먼트 모드",
     presetCustomLabel: "사용자 지정",
     presetProfessionalMeta: "외곽선 · 3x 테두리 · Professional",
+    presetCompetitionMeta: "타이머 켜짐 · 무애니메이션 · 시작 게이트",
     presetEntertainmentMeta: "기본 설정 · 기본 단축키",
     presetCustomMeta: "현재 사용자 설정",
     shortcutsTitle: "단축키",
@@ -1506,6 +1778,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Hanazar Games 정보",
     aboutVersionTitle: "버전",
     aboutSummary: "Hanazar Software · 권리 및 오픈소스",
+    settingTimer: "타이머 활성화",
+    settingsTimerTitle: "타이머",
     settingsModalTitle: "게임 설정",
     settingsGeneralTitle: "기본",
     settingsAnimationTitle: "애니메이션",
@@ -1517,6 +1791,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `부드러움 ${value}`,
     dragSensitivityLabel: "마우스 드래그 감도",
     dragSensitivityCopy: "시점을 회전할 때 마우스 드래그 감도를 조절합니다. 1은 안정적이고 10은 가장 민감합니다.",
+    timerLabel: "타이머",
+    competitionStartKicker: "경쟁 모드",
+    competitionStartTitle: "시작 준비 완료",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "전체 기본값 복원",
     resetDefaultsAction: "기본값 복원",
     optionOn: "켜기",
@@ -1528,9 +1806,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Predefinições",
     presetModalTitle: "Predefinições",
     presetProfessionalLabel: "Modo Profissional",
+    presetCompetitionLabel: "Modo Competição",
     presetEntertainmentLabel: "Modo Entretenimento",
     presetCustomLabel: "Personalizado",
     presetProfessionalMeta: "Moldura externa · borda 3x · Professional",
+    presetCompetitionMeta: "Temporizador ativo · sem animação · início controlado",
     presetEntertainmentMeta: "Padrão · atalhos padrão",
     presetCustomMeta: "Configuração atual personalizada",
     shortcutsTitle: "Atalhos",
@@ -1539,6 +1819,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Sobre Hanazar Games",
     aboutVersionTitle: "Versão",
     aboutSummary: "Hanazar Software · Direitos e código aberto",
+    settingTimer: "Ativar temporizador",
+    settingsTimerTitle: "Temporizador",
     settingsModalTitle: "Configurações do Jogo",
     settingsGeneralTitle: "Básico",
     settingsAnimationTitle: "Animação",
@@ -1550,6 +1832,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Suave ${value}`,
     dragSensitivityLabel: "Sensibilidade de Arrasto",
     dragSensitivityCopy: "Ajusta a sensibilidade do arrasto do mouse ao girar a câmera. 1 é mais estável e 10 é o mais sensível.",
+    timerLabel: "Tempo",
+    competitionStartKicker: "Modo Competição",
+    competitionStartTitle: "Pronto para Começar",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Restaurar Tudo",
     resetDefaultsAction: "Restaurar",
     optionOn: "Ligado",
@@ -1561,9 +1847,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Preset",
     presetModalTitle: "Preset",
     presetProfessionalLabel: "Modalità Professionale",
+    presetCompetitionLabel: "Modalità Competizione",
     presetEntertainmentLabel: "Modalità Intrattenimento",
     presetCustomLabel: "Personalizzato",
     presetProfessionalMeta: "Cornice esterna · bordo 3x · Professional",
+    presetCompetitionMeta: "Timer attivo · zero animazioni · avvio controllato",
     presetEntertainmentMeta: "Predefinito · scorciatoie standard",
     presetCustomMeta: "Configurazione personalizzata",
     shortcutsTitle: "Scorciatoie",
@@ -1572,6 +1860,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Informazioni su Hanazar Games",
     aboutVersionTitle: "Versione",
     aboutSummary: "Hanazar Software · Diritti e open source",
+    settingTimer: "Abilita timer",
+    settingsTimerTitle: "Timer",
     settingsModalTitle: "Impostazioni di Gioco",
     settingsGeneralTitle: "Base",
     settingsAnimationTitle: "Animazione",
@@ -1583,6 +1873,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Fluida ${value}`,
     dragSensitivityLabel: "Sensibilità del Trascinamento",
     dragSensitivityCopy: "Regola la sensibilità del trascinamento del mouse mentre ruoti la telecamera. 1 è più stabile, 10 è il più sensibile.",
+    timerLabel: "Tempo",
+    competitionStartKicker: "Modalità Competizione",
+    competitionStartTitle: "Pronto a Partire",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Ripristina Tutto",
     resetDefaultsAction: "Ripristina",
     optionOn: "Attivo",
@@ -1594,9 +1888,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Профили",
     presetModalTitle: "Профили",
     presetProfessionalLabel: "Профессиональный режим",
+    presetCompetitionLabel: "Соревновательный режим",
     presetEntertainmentLabel: "Развлекательный режим",
     presetCustomLabel: "Пользовательский",
     presetProfessionalMeta: "Внешняя рамка · контур 3x · Professional",
+    presetCompetitionMeta: "Таймер включён · без анимации · стартовая шторка",
     presetEntertainmentMeta: "По умолчанию · стандартные клавиши",
     presetCustomMeta: "Текущая конфигурация",
     shortcutsTitle: "Горячие клавиши",
@@ -1605,6 +1901,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "О Hanazar Games",
     aboutVersionTitle: "Версия",
     aboutSummary: "Hanazar Software · Права и исходный код",
+    settingTimer: "Включить таймер",
+    settingsTimerTitle: "Таймер",
     settingsModalTitle: "Настройки Игры",
     settingsGeneralTitle: "Основное",
     settingsAnimationTitle: "Анимация",
@@ -1616,6 +1914,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Плавн. ${value}`,
     dragSensitivityLabel: "Чувствительность Перетаскивания",
     dragSensitivityCopy: "Настраивает чувствительность перетаскивания мышью при вращении камеры. 1 спокойнее, 10 наиболее чувствительно.",
+    timerLabel: "Время",
+    competitionStartKicker: "Соревновательный режим",
+    competitionStartTitle: "Готово к старту",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Сбросить Всё",
     resetDefaultsAction: "Сбросить",
     optionOn: "Вкл",
@@ -1627,9 +1929,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "الإعدادات الجاهزة",
     presetModalTitle: "الإعدادات الجاهزة",
     presetProfessionalLabel: "الوضع الاحترافي",
+    presetCompetitionLabel: "وضع المنافسة",
     presetEntertainmentLabel: "وضع الترفيه",
     presetCustomLabel: "مخصص",
     presetProfessionalMeta: "الإطار الخارجي · حافة 3x · Professional",
+    presetCompetitionMeta: "المؤقت مفعّل · بلا حركة · بوابة بدء",
     presetEntertainmentMeta: "الافتراضي · الاختصارات الافتراضية",
     presetCustomMeta: "الإعداد الحالي",
     shortcutsTitle: "الاختصارات",
@@ -1638,6 +1942,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "حول Hanazar Games",
     aboutVersionTitle: "الإصدار",
     aboutSummary: "Hanazar Software · الحقوق والمصدر المفتوح",
+    settingTimer: "تفعيل المؤقت",
+    settingsTimerTitle: "المؤقت",
     settingsModalTitle: "إعدادات اللعبة",
     settingsGeneralTitle: "أساسي",
     settingsAnimationTitle: "الرسوم",
@@ -1649,6 +1955,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `سلاسة ${value}`,
     dragSensitivityLabel: "حساسية السحب",
     dragSensitivityCopy: "يضبط حساسية سحب الفأرة عند تدوير الكاميرا. 1 أكثر ثباتاً و10 الأعلى حساسية.",
+    timerLabel: "الوقت",
+    competitionStartKicker: "وضع المنافسة",
+    competitionStartTitle: "جاهز للبدء",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "استعادة الافتراضي",
     resetDefaultsAction: "استعادة",
     optionOn: "تشغيل",
@@ -1660,9 +1970,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "प्रीसेट",
     presetModalTitle: "प्रीसेट",
     presetProfessionalLabel: "प्रोफेशनल मोड",
+    presetCompetitionLabel: "प्रतियोगिता मोड",
     presetEntertainmentLabel: "मनोरंजन मोड",
     presetCustomLabel: "कस्टम",
     presetProfessionalMeta: "बाहरी फ्रेम · 3x किनारा · Professional",
+    presetCompetitionMeta: "टाइमर चालू · बिना एनीमेशन · स्टार्ट गेट",
     presetEntertainmentMeta: "डिफ़ॉल्ट सेटअप · डिफ़ॉल्ट कुंजियाँ",
     presetCustomMeta: "वर्तमान कस्टम सेटअप",
     shortcutsTitle: "शॉर्टकट",
@@ -1671,6 +1983,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Hanazar Games के बारे में",
     aboutVersionTitle: "संस्करण",
     aboutSummary: "Hanazar Software · अधिकार और ओपन सोर्स",
+    settingTimer: "टाइमर चालू करें",
+    settingsTimerTitle: "टाइमर",
     settingsModalTitle: "गेम सेटिंग्स",
     settingsGeneralTitle: "बेसिक",
     settingsAnimationTitle: "एनीमेशन",
@@ -1682,6 +1996,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `स्मूद ${value}`,
     dragSensitivityLabel: "माउस ड्रैग संवेदनशीलता",
     dragSensitivityCopy: "कैमरा घुमाते समय माउस ड्रैग की संवेदनशीलता समायोजित करें। 1 सबसे स्थिर है और 10 सबसे तेज़ प्रतिक्रिया देता है।",
+    timerLabel: "समय",
+    competitionStartKicker: "प्रतियोगिता मोड",
+    competitionStartTitle: "शुरू करने के लिए तैयार",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "सभी डिफ़ॉल्ट बहाल करें",
     resetDefaultsAction: "बहाल करें",
     optionOn: "चालू",
@@ -1693,9 +2011,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Preset",
     presetModalTitle: "Preset",
     presetProfessionalLabel: "Mode Profesional",
+    presetCompetitionLabel: "Mode Kompetisi",
     presetEntertainmentLabel: "Mode Hiburan",
     presetCustomLabel: "Kustom",
     presetProfessionalMeta: "Bingkai luar · tepi 3x · Professional",
+    presetCompetitionMeta: "Timer aktif · tanpa animasi · gerbang mulai",
     presetEntertainmentMeta: "Default · tombol default",
     presetCustomMeta: "Pengaturan kustom saat ini",
     shortcutsTitle: "Tombol Pintas",
@@ -1704,6 +2024,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Tentang Hanazar Games",
     aboutVersionTitle: "Versi",
     aboutSummary: "Hanazar Software · Hak dan sumber terbuka",
+    settingTimer: "Aktifkan timer",
+    settingsTimerTitle: "Timer",
     settingsModalTitle: "Pengaturan Game",
     settingsGeneralTitle: "Dasar",
     settingsAnimationTitle: "Animasi",
@@ -1715,6 +2037,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Halus ${value}`,
     dragSensitivityLabel: "Sensitivitas Drag Mouse",
     dragSensitivityCopy: "Atur sensitivitas drag mouse saat memutar kamera. 1 lebih tenang dan 10 paling sensitif.",
+    timerLabel: "Waktu",
+    competitionStartKicker: "Mode Kompetisi",
+    competitionStartTitle: "Siap Memulai",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Pulihkan Semua",
     resetDefaultsAction: "Pulihkan",
     optionOn: "Aktif",
@@ -1726,9 +2052,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Ön Ayarlar",
     presetModalTitle: "Ön Ayarlar",
     presetProfessionalLabel: "Profesyonel Mod",
+    presetCompetitionLabel: "Yarış Modu",
     presetEntertainmentLabel: "Eğlence Modu",
     presetCustomLabel: "Özel",
     presetProfessionalMeta: "Dış çerçeve · 3x kenar · Professional",
+    presetCompetitionMeta: "Zamanlayıcı açık · animasyonsuz · başlangıç kapısı",
     presetEntertainmentMeta: "Varsayılan · varsayılan kısayollar",
     presetCustomMeta: "Geçerli özel düzen",
     shortcutsTitle: "Kısayollar",
@@ -1737,6 +2065,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Hanazar Games Hakkında",
     aboutVersionTitle: "Sürüm",
     aboutSummary: "Hanazar Software · Haklar ve açık kaynak",
+    settingTimer: "Zamanlayıcıyı aç",
+    settingsTimerTitle: "Zamanlayıcı",
     settingsModalTitle: "Oyun Ayarları",
     settingsGeneralTitle: "Temel",
     settingsAnimationTitle: "Animasyon",
@@ -1748,6 +2078,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Akıcılık ${value}`,
     dragSensitivityLabel: "Fare Sürükleme Hassasiyeti",
     dragSensitivityCopy: "Kamerayı döndürürken fare sürükleme hassasiyetini ayarlar. 1 daha sakin, 10 en hassas seviyedir.",
+    timerLabel: "Süre",
+    competitionStartKicker: "Yarış Modu",
+    competitionStartTitle: "Başlamaya Hazır",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Tümünü Sıfırla",
     resetDefaultsAction: "Sıfırla",
     optionOn: "Açık",
@@ -1759,9 +2093,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "Thiết lập sẵn",
     presetModalTitle: "Thiết lập sẵn",
     presetProfessionalLabel: "Chế độ Chuyên nghiệp",
+    presetCompetitionLabel: "Chế độ Thi đấu",
     presetEntertainmentLabel: "Chế độ Giải trí",
     presetCustomLabel: "Tùy chỉnh",
     presetProfessionalMeta: "Khung ngoài · viền 3x · Professional",
+    presetCompetitionMeta: "Bật giờ · không hoạt ảnh · màn chờ bắt đầu",
     presetEntertainmentMeta: "Mặc định · phím mặc định",
     presetCustomMeta: "Thiết lập tùy chỉnh hiện tại",
     shortcutsTitle: "Phím tắt",
@@ -1770,6 +2106,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "Về Hanazar Games",
     aboutVersionTitle: "Phiên bản",
     aboutSummary: "Hanazar Software · Bản quyền và mã nguồn mở",
+    settingTimer: "Bật bộ đếm giờ",
+    settingsTimerTitle: "Bộ đếm giờ",
     settingsModalTitle: "Cài đặt Trò chơi",
     settingsGeneralTitle: "Cơ bản",
     settingsAnimationTitle: "Hoạt ảnh",
@@ -1781,6 +2119,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `Mượt ${value}`,
     dragSensitivityLabel: "Độ Nhạy Kéo Chuột",
     dragSensitivityCopy: "Điều chỉnh độ nhạy khi kéo chuột để xoay camera. 1 ổn định hơn, 10 nhạy nhất.",
+    timerLabel: "Thời gian",
+    competitionStartKicker: "Chế độ Thi đấu",
+    competitionStartTitle: "Sẵn sàng Bắt đầu",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "Khôi phục Mặc định",
     resetDefaultsAction: "Khôi phục",
     optionOn: "Bật",
@@ -1792,9 +2134,11 @@ const LANGUAGE_ENHANCEMENTS = {
     presetTitle: "พรีเซ็ต",
     presetModalTitle: "พรีเซ็ต",
     presetProfessionalLabel: "โหมดมืออาชีพ",
+    presetCompetitionLabel: "โหมดแข่งขัน",
     presetEntertainmentLabel: "โหมดบันเทิง",
     presetCustomLabel: "กำหนดเอง",
     presetProfessionalMeta: "กรอบนอก · เส้นขอบ 3x · Professional",
+    presetCompetitionMeta: "เปิดเวลา · ไม่มีแอนิเมชัน · หน้าก่อนเริ่ม",
     presetEntertainmentMeta: "ค่าเริ่มต้น · ปุ่มลัดเริ่มต้น",
     presetCustomMeta: "การตั้งค่าแบบกำหนดเอง",
     shortcutsTitle: "ปุ่มลัด",
@@ -1803,6 +2147,8 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutModalTitle: "เกี่ยวกับ Hanazar Games",
     aboutVersionTitle: "เวอร์ชัน",
     aboutSummary: "Hanazar Software · สิทธิ์และโอเพนซอร์ส",
+    settingTimer: "เปิดตัวจับเวลา",
+    settingsTimerTitle: "ตัวจับเวลา",
     settingsModalTitle: "การตั้งค่าเกม",
     settingsGeneralTitle: "พื้นฐาน",
     settingsAnimationTitle: "แอนิเมชัน",
@@ -1814,6 +2160,10 @@ const LANGUAGE_ENHANCEMENTS = {
     cameraSmoothnessShort: (value) => `ลื่น ${value}`,
     dragSensitivityLabel: "ความไวการลากเมาส์",
     dragSensitivityCopy: "ปรับความไวของการลากเมาส์ขณะหมุนกล้อง 1 นิ่งกว่า และ 10 ไวที่สุด",
+    timerLabel: "เวลา",
+    competitionStartKicker: "โหมดแข่งขัน",
+    competitionStartTitle: "พร้อมเริ่ม",
+    competitionStartButton: "Start",
     resetDefaultsTitle: "คืนค่าเริ่มต้นทั้งหมด",
     resetDefaultsAction: "คืนค่าเริ่มต้น",
     optionOn: "เปิด",
@@ -1824,6 +2174,8 @@ const LANGUAGE_ENHANCEMENTS = {
 const container = document.getElementById("canvas-container");
 const scoreEl = document.getElementById("score");
 const bestEl = document.getElementById("best");
+const timerStatEl = document.getElementById("timer-stat");
+const timerEl = document.getElementById("timer");
 const menuToggle = document.getElementById("menu-toggle");
 const restartBtn = document.getElementById("restart");
 const openAnnouncementsTopBtn = document.getElementById("open-announcements-top");
@@ -1843,6 +2195,8 @@ const openAboutBtn = document.getElementById("open-about");
 const splashScreen = document.getElementById("splash-screen");
 const splashLoading = document.getElementById("splash-loading");
 const enterGameBtn = document.getElementById("enter-game");
+const competitionStartOverlay = document.getElementById("competition-start-overlay");
+const competitionStartBtn = document.getElementById("competition-start-button");
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modal-title");
 const modalBody = document.getElementById("modal-body");
@@ -1860,6 +2214,7 @@ let settingsCloseTimer = null;
 let modalHideTimer = null;
 let pendingKeybindingAction = null;
 let shouldShowGuideAfterAnnouncement = false;
+let announcementModalContext = { returnToMenu: false };
 let modalEnterConfirmEnabled = false;
 
 let scene;
@@ -1889,6 +2244,10 @@ const state = {
   keybindings: loadKeybindings(),
   language: loadLanguage(),
   splashFinished: false,
+  timerElapsed: 0,
+  timerStartedAt: 0,
+  timerRunning: false,
+  awaitingCompetitionStart: false,
 };
 
 initThree();
@@ -2025,11 +2384,40 @@ function createGrid(size) {
   );
 }
 
+function gridHasTiles(grid = state.grid) {
+  return grid.some((plane) => plane.some((row) => row.some(Boolean)));
+}
+
 function resetGame() {
   state.grid = createGrid(state.size);
   state.score = 0;
   state.won = false;
   state.gameOver = false;
+  resetTimer();
+  tileMeshes.forEach((mesh) => {
+    scene.remove(mesh);
+    disposeTileMesh(mesh);
+  });
+  tileMeshes.clear();
+  activeAnimations = [];
+  state.awaitingCompetitionStart = shouldUseCompetitionStartOverlay();
+  if (!state.awaitingCompetitionStart) {
+    addRandomTile(state);
+    addRandomTile(state);
+  }
+  updateUI();
+  renderTilesImmediate();
+  refreshCompetitionStartOverlay();
+  hideModal();
+}
+
+function startCompetitionRun() {
+  if (!state.awaitingCompetitionStart || !state.splashFinished) return;
+  state.grid = createGrid(state.size);
+  state.score = 0;
+  state.won = false;
+  state.gameOver = false;
+  resetTimer();
   tileMeshes.forEach((mesh) => {
     scene.remove(mesh);
     disposeTileMesh(mesh);
@@ -2038,9 +2426,11 @@ function resetGame() {
   activeAnimations = [];
   addRandomTile(state);
   addRandomTile(state);
+  state.awaitingCompetitionStart = false;
+  startTimer();
   updateUI();
   renderTilesImmediate();
-  hideModal();
+  refreshCompetitionStartOverlay();
 }
 
 function bindEvents() {
@@ -2084,6 +2474,7 @@ function bindEvents() {
     showAboutModal();
   });
   enterGameBtn.addEventListener("click", finishSplash);
+  competitionStartBtn.addEventListener("click", startCompetitionRun);
 
   window.addEventListener("keydown", onKeyDown);
   modalBody.addEventListener("click", onModalBodyClick);
@@ -2278,10 +2669,13 @@ function axisToVector(info) {
 function handleMove(dir) {
   const result = moveGrid(state.grid, dir);
   if (!result.moved) {
-    if (detectPresetMode() !== "professional") {
+    if (!["professional", "competition"].includes(detectPresetMode())) {
       showToast(strings().toastBlocked);
     }
     return;
+  }
+  if (state.settings.showTimer && !state.timerRunning && !state.awaitingCompetitionStart) {
+    startTimer();
   }
   isMoving = true;
   state.grid = result.grid;
@@ -2396,6 +2790,15 @@ function addRandomTile(gameState, transitions = []) {
 }
 
 function animateTransitions(transitions) {
+  if (isInstantAnimationMode()) {
+    activeAnimations = [];
+    cleanupMeshes();
+    renderTilesImmediate();
+    isMoving = false;
+    checkGameState();
+    return;
+  }
+
   const now = performance.now();
   activeAnimations = [];
 
@@ -2520,6 +2923,9 @@ function animate() {
   });
 
   controls.update();
+  if (state.settings.showTimer && state.timerRunning) {
+    updateTimerUI();
+  }
   renderer.render(scene, camera);
 }
 
@@ -2712,6 +3118,117 @@ function uid() {
 function updateUI() {
   scoreEl.textContent = state.score;
   bestEl.textContent = state.best;
+  updateTimerUI();
+}
+
+function getTimerElapsedMs() {
+  return state.timerElapsed + (state.timerRunning ? performance.now() - state.timerStartedAt : 0);
+}
+
+function formatElapsedTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  if (hours > 0) {
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+function formatElapsedSecondsForResult(ms, text = strings()) {
+  const totalSeconds = Math.max(0, ms / 1000);
+  const formatter = new Intl.NumberFormat(state.language, {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+  return `${formatter.format(totalSeconds)} ${text.resultTimeUnit ?? "s"}`;
+}
+
+function buildResultStatsHtml({ includeBest = false } = {}, text = strings()) {
+  const cards = [];
+
+  if (state.settings.showTimer) {
+    cards.push({
+      label: text.resultTimeLabel ?? text.timerLabel ?? "Time",
+      value: formatElapsedSecondsForResult(getTimerElapsedMs(), text),
+    });
+  }
+
+  cards.push({
+    label: text.scoreLabel ?? "Score",
+    value: String(state.score),
+  });
+
+  if (includeBest) {
+    cards.push({
+      label: text.bestLabel ?? "Best",
+      value: String(state.best),
+    });
+  }
+
+  return `
+    <div class="result-stats">
+      ${cards
+        .map(
+          ({ label, value }) => `
+            <div class="result-stat-card">
+              <div class="result-stat-label">${label}</div>
+              <div class="result-stat-value">${value}</div>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function updateTimerUI() {
+  if (!timerEl) return;
+  timerEl.textContent = formatElapsedTime(getTimerElapsedMs());
+}
+
+function resetTimer() {
+  state.timerElapsed = 0;
+  state.timerStartedAt = 0;
+  state.timerRunning = false;
+  updateTimerUI();
+}
+
+function startTimer() {
+  if (!state.settings.showTimer || state.timerRunning || state.awaitingCompetitionStart) return;
+  state.timerStartedAt = performance.now();
+  state.timerRunning = true;
+  updateTimerUI();
+}
+
+function stopTimer() {
+  if (!state.timerRunning) return;
+  state.timerElapsed += performance.now() - state.timerStartedAt;
+  state.timerStartedAt = 0;
+  state.timerRunning = false;
+  updateTimerUI();
+}
+
+function handleTimerSettingChange(enabled) {
+  resetTimer();
+  if (!enabled) return;
+  updateTimerUI();
+}
+
+function shouldUseCompetitionStartOverlay() {
+  return detectPresetMode() === "competition";
+}
+
+function refreshCompetitionStartOverlay() {
+  if (!competitionStartOverlay) return;
+  const shouldShow = state.splashFinished && state.awaitingCompetitionStart && shouldUseCompetitionStartOverlay();
+  competitionStartOverlay.classList.toggle("hidden", !shouldShow);
+  competitionStartOverlay.classList.toggle("show", shouldShow);
+}
+
+function isInstantAnimationMode() {
+  return detectPresetMode() === "competition";
 }
 
 function saveBest(best) {
@@ -2760,11 +3277,13 @@ function checkGameState() {
 }
 
 function showGameOverModal() {
+  stopTimer();
+  const text = strings();
   openModal({
-    title: strings().gameOverTitle,
-    bodyHtml: strings().gameOverBody(state.score, state.best),
-    confirmText: strings().gameOverConfirm,
-    cancelText: strings().gameOverCancel,
+    title: text.gameOverTitle,
+    bodyHtml: `${buildResultStatsHtml({ includeBest: true }, text)}${text.gameOverBody(state.score, state.best)}`,
+    confirmText: text.gameOverConfirm,
+    cancelText: text.gameOverCancel,
     showCancel: true,
     onConfirm: () => {
       resetGame();
@@ -2773,17 +3292,54 @@ function showGameOverModal() {
 }
 
 function showWinModal() {
+  const shouldResumeTimer = state.timerRunning && detectPresetMode() !== "competition";
+  stopTimer();
+  const text = strings();
   openModal({
-    title: strings().winTitle,
-    bodyHtml: strings().winBody,
-    confirmText: strings().winConfirm,
-    cancelText: strings().winCancel,
+    title: text.winTitle,
+    bodyHtml: `${buildResultStatsHtml({}, text)}${text.winBody}`,
+    confirmText: text.winConfirm,
+    cancelText: text.winCancel,
     showCancel: true,
     onConfirm: () => {
       hideModal();
+      if (shouldResumeTimer && !state.gameOver && !state.awaitingCompetitionStart) {
+        startTimer();
+      }
     },
     onCancel: () => {
       resetGame();
+    },
+  });
+}
+
+function buildAnnouncementsModalBody(text) {
+  return `
+    <div class="picker-layout">
+      ${text.announcementsBody ?? ""}
+      <div class="picker-card announcement-history-card">
+        <div class="picker-grid-title">${text.announcementsHistoryTitle ?? "Past Announcements"}</div>
+        <p class="picker-card-copy">${text.announcementsHistoryCopy ?? "Open the previous release notice from inside the site."}</p>
+        <button class="choice-button compact" type="button" data-modal-action="announcement-history">
+          ${text.announcementsHistoryAction ?? "View Past Announcements"}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function showAnnouncementArchiveModal() {
+  const text = strings();
+  openModal({
+    title: text.announcementsArchiveTitle ?? "Past Announcements",
+    bodyHtml: `<div class="picker-layout">${text.announcementsArchiveBody ?? ""}</div>`,
+    confirmText: text.announcementsArchiveBack ?? text.modalBackMenu ?? text.modalClose,
+    showCancel: false,
+    onConfirm: () => {
+      showAnnouncementModal({
+        auto: false,
+        returnToMenu: announcementModalContext.returnToMenu,
+      });
     },
   });
 }
@@ -2805,6 +3361,7 @@ function showRulesModal() {
 
 function showAnnouncementModal({ auto = false, returnToMenu = false } = {}) {
   const text = strings();
+  announcementModalContext = { returnToMenu };
   const finishAnnouncement = () => {
     if (!hasSeenAnnouncement()) {
       markAnnouncementSeen();
@@ -2826,7 +3383,7 @@ function showAnnouncementModal({ auto = false, returnToMenu = false } = {}) {
 
   openModal({
     title: text.announcementsModalTitle ?? text.announcementsTitle ?? "Announcements",
-    bodyHtml: text.announcementsBody ?? "",
+    bodyHtml: buildAnnouncementsModalBody(text),
     confirmText: text.announcementsConfirm ?? text.modalClose,
     showCancel: false,
     allowEnterConfirm: true,
@@ -2970,6 +3527,11 @@ function onModalBodyClick(event) {
 
   if (action === "reset-defaults") {
     showResetDefaultsConfirm();
+    return;
+  }
+
+  if (action === "announcement-history") {
+    showAnnouncementArchiveModal();
     return;
   }
 
@@ -3170,6 +3732,7 @@ function startExperience() {
   if (!state.settings.showSplash) {
     state.splashFinished = true;
     splashScreen.classList.add("hidden");
+    refreshCompetitionStartOverlay();
     if (!hasSeenAnnouncement()) {
       window.setTimeout(() => {
         showAnnouncementModal({ auto: true });
@@ -3208,6 +3771,7 @@ function finishSplash() {
   splashScreen.classList.add("ready", "leaving");
   splashLoading.textContent = strings().splashReady;
   document.body.classList.remove("app-locked");
+  refreshCompetitionStartOverlay();
   window.setTimeout(() => {
     splashScreen.classList.add("hidden");
   }, 420);
@@ -3246,18 +3810,34 @@ function closeSettingsPanel() {
 }
 
 function updateSetting(key, value) {
+  const previousValue = state.settings[key];
   state.settings[key] = value;
   saveSettings(state.settings);
   applySettings();
+  if (key === "showTimer" && previousValue !== value) {
+    handleTimerSettingChange(value);
+  }
 }
 
 function applySettings() {
   document.body.classList.toggle("hints-hidden", !state.settings.showHints);
   hintEl.style.display = state.settings.showHints ? "" : "none";
+  timerStatEl.style.display = state.settings.showTimer ? "" : "none";
+  if (state.awaitingCompetitionStart && !shouldUseCompetitionStartOverlay()) {
+    state.awaitingCompetitionStart = false;
+    if (!gridHasTiles()) {
+      addRandomTile(state);
+      addRandomTile(state);
+      updateUI();
+      renderTilesImmediate();
+    }
+  }
   updateMenuSummaries();
   applyControlSensitivity();
   applyControlSmoothness();
   applyTheme();
+  updateTimerUI();
+  refreshCompetitionStartOverlay();
 }
 
 function applyTheme() {
@@ -3458,6 +4038,7 @@ function applyLanguage() {
   setText("menu-toggle", text.menuButton);
   setText("score-label", text.scoreLabel);
   setText("best-label", text.bestLabel);
+  setText("timer-label", text.timerLabel ?? "Timer");
   setText("restart", text.restart);
   setText("hint-text", text.hint);
   setText("menu-kicker", text.menuKicker);
@@ -3476,7 +4057,12 @@ function applyLanguage() {
   setText("splash-loading", state.splashFinished ? text.splashReady : text.splashLoading);
   setText("enter-game", text.enterGame);
   setText("open-announcements-top", text.announcementsTitle ?? "Announcements");
+  setText("competition-start-kicker", text.competitionStartKicker ?? "Competition Mode");
+  setText("competition-start-title", text.competitionStartTitle ?? "Ready to Start");
+  setText("competition-start-copy", text.competitionStartCopy ?? "Press start to generate the board and begin the timer.");
+  setText("competition-start-button", text.competitionStartButton ?? "Start");
   updateMenuSummaries();
+  updateTimerUI();
 }
 
 function updateMenuSummaries() {
@@ -3518,6 +4104,7 @@ function getSettingsSummary(text = strings()) {
 
 function getPresetLabel(mode, text = strings()) {
   if (mode === "professional") return text.presetProfessionalLabel ?? "Professional Mode";
+  if (mode === "competition") return text.presetCompetitionLabel ?? "Competition Mode";
   if (mode === "entertainment") return text.presetEntertainmentLabel ?? "Entertainment Mode";
   return text.presetCustomLabel ?? "Custom";
 }
@@ -3527,6 +4114,9 @@ function getPresetSummary(text = strings()) {
   const label = getPresetLabel(mode, text);
   if (mode === "professional") {
     return `${label} · ${text.presetProfessionalMeta ?? "Outer frame · 3x edges · Professional"}`;
+  }
+  if (mode === "competition") {
+    return `${label} · ${text.presetCompetitionMeta ?? "Timer on · no animation · start gate"}`;
   }
   if (mode === "entertainment") {
     return `${label} · ${text.presetEntertainmentMeta ?? "Default setup · Default shortcuts"}`;
@@ -3571,8 +4161,16 @@ function getShortcutsSummary(text = strings()) {
   return `${text.shortcutOpenMenu ?? "Menu"}: ${formatKeyLabel(state.keybindings.openMenu, text)} · ${text.shortcutRestart ?? "Restart"}: ${formatKeyLabel(state.keybindings.restart, text)}`;
 }
 
+function matchesKeybindingProfile(profile, keybindings = state.keybindings) {
+  return Object.entries(profile).every(([action, key]) => keybindings[action] === key);
+}
+
 function hasDefaultKeybindings(keybindings = state.keybindings) {
-  return Object.entries(DEFAULT_KEYBINDINGS).every(([action, key]) => keybindings[action] === key);
+  return matchesKeybindingProfile(DEFAULT_KEYBINDINGS, keybindings);
+}
+
+function hasCompetitionKeybindings(keybindings = state.keybindings) {
+  return matchesKeybindingProfile(COMPETITION_KEYBINDINGS, keybindings);
 }
 
 function hasHelperLineState(expected, settings = state.settings) {
@@ -3594,6 +4192,24 @@ function detectPresetModeForState(settings = state.settings, keybindings = state
     settings.reducedMotion === true &&
     settings.confirmRestart === true &&
     settings.showSplash === true &&
+    settings.showTimer === true &&
+    settings.tileEdgeHighlight === true &&
+    edgeWidth === 3 &&
+    animationSpeed === defaultAnimationSpeed &&
+    cameraSmoothness === 10 &&
+    dragSensitivity === defaultDragSensitivity &&
+    hasHelperLineState({ outer: true, inner: false, trail: false }, settings) &&
+    hasCompetitionKeybindings(keybindings)
+  ) {
+    return "competition";
+  }
+
+  if (
+    settings.showHints === false &&
+    settings.reducedMotion === true &&
+    settings.confirmRestart === true &&
+    settings.showSplash === true &&
+    settings.showTimer === true &&
     animationSpeed === defaultAnimationSpeed &&
     cameraSmoothness === 25 &&
     dragSensitivity === defaultDragSensitivity &&
@@ -3610,6 +4226,7 @@ function detectPresetModeForState(settings = state.settings, keybindings = state
     settings.reducedMotion === DEFAULT_SETTINGS.reducedMotion &&
     settings.confirmRestart === DEFAULT_SETTINGS.confirmRestart &&
     settings.showSplash === DEFAULT_SETTINGS.showSplash &&
+    settings.showTimer === DEFAULT_SETTINGS.showTimer &&
     animationSpeed === defaultAnimationSpeed &&
     cameraSmoothness === defaultCameraSmoothness &&
     dragSensitivity === defaultDragSensitivity &&
@@ -3629,7 +4246,8 @@ function detectPresetMode() {
 }
 
 function applyPreset(mode) {
-  if (mode !== "professional" && mode !== "entertainment") return;
+  if (!["professional", "competition", "entertainment"].includes(mode)) return;
+  const shouldRebuildBoard = mode === "competition" || state.awaitingCompetitionStart;
 
   const nextSettings = {
     ...state.settings,
@@ -3637,6 +4255,7 @@ function applyPreset(mode) {
     reducedMotion: DEFAULT_SETTINGS.reducedMotion,
     confirmRestart: DEFAULT_SETTINGS.confirmRestart,
     showSplash: DEFAULT_SETTINGS.showSplash,
+    showTimer: DEFAULT_SETTINGS.showTimer,
     animationSpeed: DEFAULT_SETTINGS.animationSpeed,
     cameraSmoothness: DEFAULT_SETTINGS.cameraSmoothness,
     dragSensitivity: DEFAULT_SETTINGS.dragSensitivity,
@@ -3649,18 +4268,35 @@ function applyPreset(mode) {
     nextSettings.showHints = false;
     nextSettings.reducedMotion = true;
     nextSettings.showSplash = true;
+    nextSettings.showTimer = true;
     nextSettings.cameraSmoothness = 25;
     nextSettings.tileEdgeHighlight = true;
     nextSettings.tileEdgeWidth = 3;
     nextSettings.helperLines = { outer: true, inner: false, trail: false };
   }
 
+  if (mode === "competition") {
+    nextSettings.showHints = false;
+    nextSettings.reducedMotion = true;
+    nextSettings.showSplash = true;
+    nextSettings.showTimer = true;
+    nextSettings.cameraSmoothness = 10;
+    nextSettings.tileEdgeHighlight = true;
+    nextSettings.tileEdgeWidth = 3;
+    nextSettings.helperLines = { outer: true, inner: false, trail: false };
+  }
+
   state.settings = nextSettings;
-  state.keybindings = { ...DEFAULT_KEYBINDINGS };
+  state.keybindings = mode === "competition"
+    ? { ...COMPETITION_KEYBINDINGS }
+    : { ...DEFAULT_KEYBINDINGS };
   saveSettings(state.settings);
   saveKeybindings(state.keybindings);
   applySettings();
   applyLanguage();
+  if (shouldRebuildBoard) {
+    resetGame();
+  }
   showToast(
     typeof strings().presetToastApplied === "function"
       ? strings().presetToastApplied(getPresetLabel(mode))
@@ -3703,6 +4339,7 @@ function buildPresetModalBody(text = strings()) {
       <div class="picker-card">
         <div class="settings-stack">
           ${renderPreset("professional", text.presetProfessionalCopy ?? "", text.presetProfessionalMeta ?? "Professional")}
+          ${renderPreset("competition", text.presetCompetitionCopy ?? "", text.presetCompetitionMeta ?? "Competition")}
           ${renderPreset("entertainment", text.presetEntertainmentCopy ?? "", text.presetEntertainmentMeta ?? "Default")}
         </div>
       </div>
@@ -3750,6 +4387,10 @@ function buildGameSettingsModalBody(text = strings()) {
     .join("");
   const animationRows = SETTINGS_CONFIG
     .filter((config) => config.group === "animation")
+    .map(buildSettingRow)
+    .join("");
+  const timerRows = SETTINGS_CONFIG
+    .filter((config) => config.group === "timer")
     .map(buildSettingRow)
     .join("");
 
@@ -3860,6 +4501,11 @@ function buildGameSettingsModalBody(text = strings()) {
             </div>
           </div>
         </div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">${text.settingsTimerTitle ?? "Timer"}</div>
+        <p class="picker-card-copy">${text.settingsTimerIntro ?? ""}</p>
+        <div class="settings-stack">${timerRows}</div>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">${text.resetDefaultsTitle ?? "Restore All Defaults"}</div>
@@ -4391,15 +5037,20 @@ function markAnnouncementSeen() {
 }
 
 function restoreAllDefaults() {
+  const shouldRebuildBoard = state.awaitingCompetitionStart;
   state.settings = {
     ...DEFAULT_SETTINGS,
     helperLines: { ...DEFAULT_SETTINGS.helperLines },
   };
   state.keybindings = { ...DEFAULT_KEYBINDINGS };
+  resetTimer();
   saveSettings(state.settings);
   saveKeybindings(state.keybindings);
   applySettings();
   applyLanguage();
+  if (shouldRebuildBoard) {
+    resetGame();
+  }
 }
 
 function showResetDefaultsConfirm() {
@@ -4422,6 +5073,7 @@ function isOverlayBlockingGame() {
   return (
     !settingsPanel.classList.contains("hidden") ||
     !modal.classList.contains("hidden") ||
+    !competitionStartOverlay.classList.contains("hidden") ||
     !state.splashFinished
   );
 }

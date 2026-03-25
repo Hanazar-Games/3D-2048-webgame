@@ -53,7 +53,7 @@
       <button id="open-announcements-menu" class="menu-nav-button" type="button">
         <span class="menu-nav-copy">
           <span class="menu-nav-title" id="section-announcements-title">公告</span>
-          <span class="menu-nav-meta" id="menu-announcements-meta">V3.1.1 · 2026-03-24</span>
+          <span class="menu-nav-meta" id="menu-announcements-meta">V3.2.1 · 2026-03-25</span>
         </span>
         <span class="menu-nav-arrow">›</span>
       </button>
@@ -126,6 +126,10 @@
         <div class="label" id="best-label">最高</div>
         <div class="value" id="best">0</div>
       </div>
+      <div class="stat" id="timer-stat">
+        <div class="label" id="timer-label">计时</div>
+        <div class="value" id="timer">00:00</div>
+      </div>
     </div>
 
     <div class="controls">
@@ -135,7 +139,16 @@
     </div>
   </div>
 
-  <div id="canvas-container"></div>
+  <div id="canvas-container">
+    <div id="competition-start-overlay" class="competition-start-overlay hidden">
+      <div class="competition-start-card">
+        <div class="competition-start-kicker" id="competition-start-kicker">Competition Mode</div>
+        <div class="competition-start-title" id="competition-start-title">Ready to Start</div>
+        <p class="competition-start-copy" id="competition-start-copy">Press start to generate the board and begin the timer.</p>
+        <button id="competition-start-button" type="button">开始</button>
+      </div>
+    </div>
+  </div>
   <div id="toast" class="hidden"></div>
 
   <div id="modal" class="hidden">
