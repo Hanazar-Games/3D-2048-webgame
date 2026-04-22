@@ -6,8 +6,8 @@
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.2.1-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
-[![Release Date](https://img.shields.io/badge/released-2026--03--25-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.2.2-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Release Date](https://img.shields.io/badge/released-2026--04--22-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
 
@@ -308,21 +308,28 @@ The current build includes:
 
 ---
 
-## Latest Update: V3.2.1
+## Latest Update: V3.2.2
 
-**Release Date:** `2026-03-25`
-**Version:** `V3.2.1`
+**Release Date:** `2026-04-22`
+**Version:** `V3.2.2`
 
 ### Short Notes
+
+- Fixed large-value tile number fitting so oversized values stay inside the tile face more reliably
+- Fixed duplicated result information in the Japanese game-over dialog
+- Hardened default helper-line state loading to avoid nested reference bleed
+- Rolled the announcement system forward to a new patch release and pushed V3.2.1 into history
+
+---
+
+## Recent Version History
+
+### V3.2.1
 
 - Refined the announcement system into a clearer latest-notice plus history-list structure
 - Added expandable detail sections for past announcements
 - Synced version text across the menu, announcement flow, and about panel
 - Tightened result-modal presentation when timer-based run stats are shown
-
----
-
-## Recent Version History
 
 ### V3.2.0
 

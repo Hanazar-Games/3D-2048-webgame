@@ -12,9 +12,9 @@ const SETTINGS_KEY = "settings3D2048";
 const KEYBINDINGS_KEY = "keybindings3D2048";
 const LANGUAGE_KEY = "language3D2048";
 const GUIDE_KEY = "guideSeen3D2048";
-const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.1";
-const APP_VERSION = "V3.2.1";
-const RELEASE_DATE = "2026-03-25";
+const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.2";
+const APP_VERSION = "V3.2.2";
+const RELEASE_DATE = "2026-04-22";
 const DEFAULT_SETTINGS = {
   showHints: true,
   reducedMotion: false,
@@ -270,11 +270,11 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "这是 3D 2048 的 V3.2.1 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
+    announcementsModalIntro: "这是 3D 2048 的 V3.2.2 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
     announcementsDateLabel: "发布日期",
     announcementsVersionLabel: "版本号",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
+    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.1 的 bug 修复更新、V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回当前公告",
@@ -283,23 +283,47 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">这一版是一次修复与整理更新，重点把公告结构、结果反馈和版本同步信息收得更清楚。</p>
+        <p class="about-copy">这一版继续做稳定性修复，重点收掉结果弹窗、数字显示和默认设置状态里的几个细碎但烦人的问题。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新内容</div>
         <ul class="modal-list">
-          <li>修复胜利与失败弹窗，计时开启时会更稳定地显示用时、分数和最高分。</li>
-          <li>公告系统改成“当前公告 + 往期公告列表”，历史版本查看更直接。</li>
-          <li>同步修正公告版本号、菜单入口版本文案和关于页版本信息。</li>
+          <li>修复高位数字在方块面上的潜在溢出，超大数字缩放更稳。</li>
+          <li>修复日文失败弹窗与结果卡片重复显示结算信息的问题。</li>
+          <li>修复默认辅助线设置的共享引用风险，避免局部状态串联。</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">说明</div>
-        <p class="about-copy">V3.2.1 主要是把上一版功能补上更完整的展示和归档，不新增大功能，重点做修复和整理。</p>
+        <p class="about-copy">V3.2.2 是一个纯修复补丁版，不新增玩法，重点把最近几轮叠加出来的显示和状态问题收干净。</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">公告系统改成当前公告加历史列表，结果弹窗和版本同步信息也在这一版做了第一次整理。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>当前公告与往期公告列表结构首次建立。</li>
+                <li>往期公告支持站内查看，版本记录开始内置到页面里。</li>
+                <li>结果弹窗开始统一展示计时、分数与最高分信息。</li>
+                <li>菜单、关于页和公告版本信息第一次做了集中同步。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -576,11 +600,11 @@ const STRINGS = {
     announcementsTitle: "Announcements",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "Update Announcements",
-    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.2.1. It appears automatically on the first visit, then only when opened manually.",
+    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.2.2. It appears automatically on the first visit, then only when opened manually.",
     announcementsDateLabel: "Release Date",
     announcementsVersionLabel: "Version",
     announcementsHistoryTitle: "Past Announcements",
-    announcementsHistoryCopy: "Open the announcement history list to review the V3.2.0 timing and competition update, plus the earlier V3.1.1 site refresh.",
+    announcementsHistoryCopy: "Open the announcement history list to review the V3.2.1 bug-fix release, the V3.2.0 timing and competition update, and the earlier V3.1.1 site refresh.",
     announcementsHistoryAction: "View Announcement History",
     announcementsArchiveTitle: "Past Announcements",
     announcementsArchiveBack: "Back to Current Announcement",
@@ -589,23 +613,47 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">This is a short fix-and-polish release focused on announcement structure, result feedback, and version sync.</p>
+        <p class="about-copy">This release continues the stability pass and cleans up a few small but noticeable issues around result UI, large-number rendering, and default settings state.</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">What changed</div>
         <ul class="modal-list">
-          <li>Win and loss dialogs now present time, score, and best score more cleanly when the timer is enabled.</li>
-          <li>The announcement system now uses a clearer “current notice + history list” structure.</li>
-          <li>Announcement version labels, menu version text, and about-page version info were synchronized.</li>
+          <li>Large-value tile numbers now scale more safely and are less likely to overflow the tile face.</li>
+          <li>The Japanese game-over dialog no longer repeats score information that is already shown in the result cards.</li>
+          <li>Default helper-line settings no longer risk sharing nested state by reference.</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">Notes</div>
-        <p class="about-copy">V3.2.1 does not add a major new mode. It mainly tightens presentation, fixes mismatched version details, and makes the release history easier to browse.</p>
+        <p class="about-copy">V3.2.2 is a pure patch release. No new mode was added here; this one is about cleaning up recent regressions and keeping the interface behavior dependable.</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">The announcement system moved to a current-notice plus history-list structure, and result dialogs got their first cleanup pass.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>The latest announcement and past-announcement list structure first went live here.</li>
+                <li>Archived announcements became viewable directly inside the site.</li>
+                <li>Result dialogs were unified around timer, score, and best-score presentation.</li>
+                <li>Menu, about-panel, and announcement version text were aligned for the first time.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -1024,8 +1072,7 @@ const STRINGS = {
     winConfirm: "続ける",
     winCancel: "リスタート",
     gameOverTitle: "ゲーム終了",
-    gameOverBody: (score, best) =>
-      `<p>今回のスコア: <strong>${score}</strong></p><p>最高スコア: <strong>${best}</strong></p><p>これ以上有効な移動はありません。</p>`,
+    gameOverBody: () => `<p>これ以上有効な移動はありません。すぐにやり直すこともできますし、まずは今回の結果を確認することもできます。</p>`,
     gameOverConfirm: "リスタート",
     gameOverCancel: "閉じる",
   },
@@ -1190,11 +1237,11 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "這是 3D 2048 的 V3.2.1 一次性更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
+    announcementsModalIntro: "這是 3D 2048 的 V3.2.2 一次性更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
     announcementsDateLabel: "發布日期",
     announcementsVersionLabel: "版本號",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
+    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.1 的 bug 修復更新、V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回目前公告",
@@ -1203,23 +1250,47 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">這一版是一次修復與整理更新，重點把公告結構、結果回饋與版本同步資訊收得更清楚。</p>
+        <p class="about-copy">這一版繼續做穩定性修復，重點收掉結果彈窗、大數字顯示和預設狀態裡幾個細碎但明顯的問題。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新內容</div>
         <ul class="modal-list">
-          <li>修復勝利與失敗彈窗，計時開啟時會更穩定地顯示用時、分數與最高分。</li>
-          <li>公告系統改成「目前公告 + 往期公告列表」，歷史版本查看更直接。</li>
-          <li>同步修正公告版本號、選單入口版本文案與關於頁版本資訊。</li>
+          <li>修復高位數字在方塊面上的潛在溢出，超大數字縮放更穩。</li>
+          <li>修復日文失敗彈窗與結果卡片重複顯示結算資訊的問題。</li>
+          <li>修復預設輔助線設定的共享引用風險，避免局部狀態串聯。</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">說明</div>
-        <p class="about-copy">V3.2.1 不新增大型玩法，主要是把上一版功能的展示、歸檔與細節修正收完整。</p>
+        <p class="about-copy">V3.2.2 是純修復補丁版，不新增玩法，重點是把最近幾輪疊加出來的顯示與狀態問題收乾淨。</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">公告系統改成目前公告加歷史列表，結果彈窗和版本資訊同步也在這一版做了第一次整理。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>目前公告與往期公告列表結構首次建立。</li>
+                <li>往期公告開始支援站內查看，版本記錄內建到頁面裡。</li>
+                <li>結果彈窗開始統一展示計時、分數與最高分資訊。</li>
+                <li>選單、關於頁與公告版本資訊第一次做了集中同步。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -1598,7 +1669,7 @@ const LANGUAGE_ENHANCEMENTS = {
     announcementsTitle: "お知らせ",
     announcementsModalTitle: "更新のお知らせ",
     announcementsHistoryTitle: "過去のお知らせ",
-    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.0 のタイマー・競技モード更新と、さらに前の V3.1.1 サイト刷新内容を確認できます。",
+    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.1 のバグ修正更新、V3.2.0 のタイマー・競技モード更新、さらに前の V3.1.1 サイト刷新内容を確認できます。",
     announcementsHistoryAction: "履歴一覧を見る",
     announcementsArchiveTitle: "過去のお知らせ",
     announcementsArchiveBack: "現在のお知らせへ戻る",
@@ -3033,14 +3104,14 @@ function createNumberTexture(value, style = getTileStyle(value)) {
 
 function fitNumberFontSize(ctx, text, maxWidth) {
   let size = 124;
-  while (size > 44) {
+  while (size > 22) {
     ctx.font = `bold ${size}px 'Avenir Next', 'Noto Sans SC', sans-serif`;
     if (ctx.measureText(text).width <= maxWidth) {
       return size;
     }
-    size -= 4;
+    size -= size > 48 ? 4 : 2;
   }
-  return 44;
+  return 22;
 }
 
 function getTileStyle(value) {
@@ -4924,7 +4995,12 @@ function strings() {
 function loadSettings() {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY);
-    if (!raw) return { ...DEFAULT_SETTINGS };
+    if (!raw) {
+      return {
+        ...DEFAULT_SETTINGS,
+        helperLines: { ...DEFAULT_SETTINGS.helperLines },
+      };
+    }
     const parsed = { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
     if (!THEME_LIBRARY[parsed.themeName]) parsed.themeName = DEFAULT_SETTINGS.themeName;
     if (parsed.themeTone !== "light" && parsed.themeTone !== "dark") {
@@ -4948,7 +5024,10 @@ function loadSettings() {
     parsed.dragSensitivity = normalizeDragSensitivity(parsed.dragSensitivity);
     return parsed;
   } catch (e) {
-    return { ...DEFAULT_SETTINGS };
+    return {
+      ...DEFAULT_SETTINGS,
+      helperLines: { ...DEFAULT_SETTINGS.helperLines },
+    };
   }
 }
 
