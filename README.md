@@ -6,7 +6,7 @@
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.2.6-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.2.7-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Release Date](https://img.shields.io/badge/released-2026--05--08-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
@@ -308,12 +308,22 @@ The current build includes:
 
 ---
 
-## Latest Update: V3.2.6
+## Latest Update: V3.2.7
 
 **Release Date:** `2026-05-08`
-**Version:** `V3.2.6`
+**Version:** `V3.2.7`
 
 ### Short Notes
+
+- Fixed mixed Chinese vocabulary in Japanese announcements (硬编码 → ハードコード, 标语 → キャッチコピー)
+- Fixed simplified characters in Traditional Chinese announcement archive (编码 → 編碼)
+- Updated default version text in index.html menu announcement meta
+
+---
+
+## Recent Version History
+
+### V3.2.6
 
 - Fixed fatal syntax errors (missing commas) in EN, ZH-TW, JA language packs
 - Fixed animation finish timer leak and isMoving flag reset issues
@@ -322,10 +332,6 @@ The current build includes:
 - Added "Back to Lobby" button linking to hanazargames.com
 - Added global focus-visible styles and prefers-reduced-motion support
 - Fixed remaining hard-coded CSS theme colors across overlays, panels, and toggles
-
----
-
-## Recent Version History
 
 ### V3.2.5
 
