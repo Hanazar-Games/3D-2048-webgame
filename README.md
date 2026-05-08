@@ -6,8 +6,8 @@
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.2.2-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
-[![Release Date](https://img.shields.io/badge/released-2026--04--22-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.2.6-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Release Date](https://img.shields.io/badge/released-2026--05--08-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
 
@@ -308,21 +308,55 @@ The current build includes:
 
 ---
 
-## Latest Update: V3.2.2
+## Latest Update: V3.2.6
 
-**Release Date:** `2026-04-22`
-**Version:** `V3.2.2`
+**Release Date:** `2026-05-08`
+**Version:** `V3.2.6`
 
 ### Short Notes
 
-- Fixed large-value tile number fitting so oversized values stay inside the tile face more reliably
-- Fixed duplicated result information in the Japanese game-over dialog
-- Hardened default helper-line state loading to avoid nested reference bleed
-- Rolled the announcement system forward to a new patch release and pushed V3.2.1 into history
+- Fixed fatal syntax errors (missing commas) in EN, ZH-TW, JA language packs
+- Fixed animation finish timer leak and isMoving flag reset issues
+- Fixed double Enter-key trigger on focused modal confirm button
+- Added Enter-key confirmation to Rules and Guide modals
+- Added "Back to Lobby" button linking to hanazargames.com
+- Added global focus-visible styles and prefers-reduced-motion support
+- Fixed remaining hard-coded CSS theme colors across overlays, panels, and toggles
 
 ---
 
 ## Recent Version History
+
+### V3.2.5
+
+- Fixed fatal syntax errors (missing commas) in EN, ZH-TW, JA language packs
+- Fixed animation finish timer leak and isMoving flag reset issues
+- Fixed double Enter-key trigger on focused modal confirm button
+- Added Enter-key confirmation to Rules and Guide modals
+- Added "Back to Lobby" button linking to hanazargames.com
+- Added global focus-visible styles and prefers-reduced-motion support
+
+### V3.2.4
+
+- Fixed remaining hard-coded CSS theme colors in competition overlay, settings panel, modal borders, and toggle switches
+- Fixed the Simplified Chinese splash tagline incorrectly displaying Japanese text
+- Added missing Japanese translation for the splash tagline
+- Added Enter-key confirmation support to game-over and win dialogs
+- Fixed potential conflict between win-state and game-over detection so reaching 2048 always shows the win dialog first
+
+### V3.2.3
+
+- Fixed menu-item description text being permanently hidden by a CSS bug
+- Fixed hard-coded rule-card border and keycap shadow colors that did not follow non-default themes
+- Fixed the Competition Mode "Start" button remaining untranslated in 13 languages
+- Added a large batch of missing Japanese translations for rules, guide, dialogs, and presets
+- Cleaned up redundant branching in the key-normalization helper
+
+### V3.2.2
+
+- Fixed large-value tile number fitting so oversized values stay inside the tile face more reliably
+- Fixed duplicated result information in the Japanese game-over dialog
+- Hardened default helper-line state loading to avoid nested reference bleed
 
 ### V3.2.1
 

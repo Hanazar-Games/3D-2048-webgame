@@ -12,9 +12,9 @@ const SETTINGS_KEY = "settings3D2048";
 const KEYBINDINGS_KEY = "keybindings3D2048";
 const LANGUAGE_KEY = "language3D2048";
 const GUIDE_KEY = "guideSeen3D2048";
-const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.2";
-const APP_VERSION = "V3.2.2";
-const RELEASE_DATE = "2026-04-22";
+const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.6";
+const APP_VERSION = "V3.2.6";
+const RELEASE_DATE = "2026-05-08";
 const DEFAULT_SETTINGS = {
   showHints: true,
   reducedMotion: false,
@@ -270,11 +270,11 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "这是 3D 2048 的 V3.2.2 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
+    announcementsModalIntro: "这是 3D 2048 的 V3.2.6 更新公告。首次进入网站时会自动展示一次，之后只会在你主动打开时查看。",
     announcementsDateLabel: "发布日期",
     announcementsVersionLabel: "版本号",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.1 的 bug 修复更新、V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
+    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.5 的稳定性修复与无障碍增强、V3.2.4 的视觉一致性与交互优化、V3.2.3 的 UI 与本地化修复、V3.2.2 的稳定性修复、V3.2.1 的 bug 修复更新、V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回当前公告",
@@ -283,23 +283,133 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">这一版继续做稳定性修复，重点收掉结果弹窗、数字显示和默认设置状态里的几个细碎但烦人的问题。</p>
+        <p class="about-copy">这一版修复了由上次更新引入的致命语法错误、动画定时器泄漏、键盘交互双重触发等高危问题，补齐了 CSS 主题硬编码颜色修复，并新增了回到大厅按钮、焦点可见样式与减少动画支持。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新内容</div>
         <ul class="modal-list">
-          <li>修复高位数字在方块面上的潜在溢出，超大数字缩放更稳。</li>
-          <li>修复日文失败弹窗与结果卡片重复显示结算信息的问题。</li>
-          <li>修复默认辅助线设置的共享引用风险，避免局部状态串联。</li>
+          <li>修复英语、繁体中文、日语语言包中因缺少逗号导致的致命语法错误，避免切换语言时页面白屏。</li>
+          <li>修复动画结束定时器未保存引用的问题，解决重置游戏或切换竞赛模式时可能产生的状态错乱与重复弹窗。</li>
+          <li>修复重置游戏和开始竞赛时未重置 isMoving 标志的问题，避免输入被意外锁死。</li>
+          <li>修复模态框确认按钮获得焦点时按 Enter 会双重触发回调的问题。</li>
+          <li>为规则弹窗和新手引导弹窗新增 Enter 键确认支持。</li>
+          <li>修复简体中文开场标语误用日文文案的问题，补充日文与繁体中文开场标语翻译。</li>
+          <li>新增游戏菜单「回到大厅」按钮，一键返回 Hanazar Games 主站。</li>
+          <li>新增全局焦点可见（focus-visible）样式，提升键盘导航无障碍体验。</li>
+          <li>新增系统级减少动画（prefers-reduced-motion）支持，尊重用户的无障碍偏好。</li>
+          <li>修复多处 CSS 硬编码颜色（竞赛遮罩、设置面板、模态框边框、开关控件等），使其正确跟随主题。</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">说明</div>
-        <p class="about-copy">V3.2.2 是一个纯修复补丁版，不新增玩法，重点把最近几轮叠加出来的显示和状态问题收干净。</p>
+        <p class="about-copy">V3.2.6 是一个以稳定性修复与无障碍增强为主的补丁版本，重点消除语法级错误、清理动画生命周期泄漏、修复 CSS 主题颜色硬编码，并补齐键盘与动效无障碍支持。</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.5</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">修复致命语法错误、动画定时器泄漏与键盘交互双重触发等高危问题，新增回到大厅按钮、焦点可见样式与减少动画支持，并补齐 CSS 主题硬编码颜色修复。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修复英语、繁体中文、日语语言包中因缺少逗号导致的致命语法错误，避免切换语言时页面白屏。</li>
+                <li>修复动画结束定时器未保存引用的问题，解决重置游戏或切换竞赛模式时可能产生的状态错乱与重复弹窗。</li>
+                <li>修复重置游戏和开始竞赛时未重置 isMoving 标志的问题，避免输入被意外锁死。</li>
+                <li>修复模态框确认按钮获得焦点时按 Enter 会双重触发回调的问题。</li>
+                <li>为规则弹窗和新手引导弹窗新增 Enter 键确认支持。</li>
+                <li>修复简体中文开场标语误用日文文案的问题，补充日文与繁体中文开场标语翻译。</li>
+                <li>新增游戏菜单「回到大厅」按钮，一键返回 Hanazar Games 主站。</li>
+                <li>新增全局焦点可见（focus-visible）样式，提升键盘导航无障碍体验。</li>
+                <li>新增系统级减少动画（prefers-reduced-motion）支持，尊重用户的无障碍偏好。</li>
+                <li>修复多处 CSS 硬编码颜色（竞赛遮罩、设置面板、模态框边框、开关控件等），使其正确跟随主题。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.4</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">继续深入修复 CSS 主题硬编码颜色、本地化文案错误，优化游戏结束与胜利弹窗的键盘交互体验。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修复竞赛开始遮罩、设置面板、模态框边框、开关控件等多处 CSS 硬编码颜色。</li>
+                <li>修复简体中文开场标语误用日文文案的问题。</li>
+                <li>补充日文开场标语的缺失翻译。</li>
+                <li>为游戏结束与胜利弹窗新增 Enter 键快速确认支持。</li>
+                <li>修复胜利状态检测与游戏结束状态检测的潜在冲突。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.3</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">UI 一致性、本地化完整性与菜单交互细节集中修复，补充大量日文翻译。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修复菜单项描述文字被 CSS 错误隐藏的问题。</li>
+                <li>修复规则卡片边框与按键阴影颜色在切换非默认主题时未跟随主题变化的问题。</li>
+                <li>修复竞赛模式「开始」按钮在 13 种语言下未本地化的问题。</li>
+                <li>补充日文界面中规则、公告、新手引导、胜利/失败弹窗与预设说明等大量缺失翻译。</li>
+                <li>清理按键规范化函数的冗余分支逻辑。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.2</div>
+            </div>
+            <div class="announcement-archive-date">2026-04-22</div>
+          </div>
+          <p class="announcement-archive-copy">稳定性修复补丁，重点处理结果弹窗、数字显示和默认设置状态里的细碎问题。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展开详细内容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修复高位数字在方块面上的潜在溢出，超大数字缩放更稳。</li>
+                <li>修复日文失败弹窗与结果卡片重复显示结算信息的问题。</li>
+                <li>修复默认辅助线设置的共享引用风险，避免局部状态串联。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -516,10 +626,12 @@ const STRINGS = {
     splashBrand: "Hanazar Games",
     splashTitle: "3D 2048",
     splashProfessionalSuffix: "Professional",
-    splashTagline: "Rotate. Merge. Think in volume.",
+    splashTagline: "立体方格，无限组合。",
     splashLoading: "正在载入立方棋盘",
     splashReady: "准备完成，进入游戏",
     enterGame: "进入游戏",
+    lobbyTitle: "回到大厅",
+    lobbyMeta: "hanazargames.com",
     toastRestarted: "已重新开始",
     toastBlocked: "该方向无法移动",
     toastLanguage: "语言已切换",
@@ -600,11 +712,11 @@ const STRINGS = {
     announcementsTitle: "Announcements",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "Update Announcements",
-    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.2.2. It appears automatically on the first visit, then only when opened manually.",
+    announcementsModalIntro: "This is the one-time update notice for 3D 2048 V3.2.6. It appears automatically on the first visit, then only when opened manually.",
     announcementsDateLabel: "Release Date",
     announcementsVersionLabel: "Version",
     announcementsHistoryTitle: "Past Announcements",
-    announcementsHistoryCopy: "Open the announcement history list to review the V3.2.1 bug-fix release, the V3.2.0 timing and competition update, and the earlier V3.1.1 site refresh.",
+    announcementsHistoryCopy: "Open the announcement history list to review the V3.2.5 stability and accessibility patch, the V3.2.4 visual consistency and interaction polish patch, the V3.2.3 UI and localization patch, the V3.2.2 stability patch, the V3.2.1 bug-fix release, the V3.2.0 timing and competition update, and the earlier V3.1.1 site refresh.",
     announcementsHistoryAction: "View Announcement History",
     announcementsArchiveTitle: "Past Announcements",
     announcementsArchiveBack: "Back to Current Announcement",
@@ -613,23 +725,133 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">This release continues the stability pass and cleans up a few small but noticeable issues around result UI, large-number rendering, and default settings state.</p>
+        <p class="about-copy">This patch fixes fatal syntax errors, animation timer leaks, double key triggers, completes the CSS hard-coded theme color fixes, and adds the Back to Lobby button, focus-visible styles, and reduced-motion support.</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">What changed</div>
         <ul class="modal-list">
-          <li>Large-value tile numbers now scale more safely and are less likely to overflow the tile face.</li>
-          <li>The Japanese game-over dialog no longer repeats score information that is already shown in the result cards.</li>
-          <li>Default helper-line settings no longer risk sharing nested state by reference.</li>
+          <li>Fixed fatal syntax errors (missing commas) in English, Traditional Chinese, and Japanese language packs that caused white-screen crashes on language switch.</li>
+          <li>Fixed animation finish timer leak by saving the setTimeout reference and clearing it on resetGame/startCompetitionRun.</li>
+          <li>Fixed isMoving flag not being reset during resetGame/startCompetitionRun, which could lock input.</li>
+          <li>Fixed double Enter-key trigger when modal confirm button has focus.</li>
+          <li>Added Enter-key confirmation to Rules and Guide modals.</li>
+          <li>Fixed Simplified Chinese splash tagline showing Japanese text; added missing Japanese and Traditional Chinese splash tagline translations.</li>
+          <li>Added "Back to Lobby" button in the game menu linking to hanazargames.com.</li>
+          <li>Added global focus-visible styles for keyboard navigation accessibility.</li>
+          <li>Added prefers-reduced-motion support.</li>
+          <li>Fixed multiple hard-coded CSS colors (competition overlay, settings panel, modal borders, toggle switches, etc.) so they correctly follow the active theme.</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">Notes</div>
-        <p class="about-copy">V3.2.2 is a pure patch release. No new mode was added here; this one is about cleaning up recent regressions and keeping the interface behavior dependable.</p>
+        <p class="about-copy">V3.2.6 is a stability and accessibility patch. It eliminates syntax-level crashes, cleans up animation lifecycle leaks, fixes CSS hard-coded theme colors, and completes keyboard and motion accessibility support.</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.5</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">Fixed fatal syntax errors, animation timer leaks, and double key triggers; added the Back to Lobby button, focus-visible styles, and reduced-motion support; completed CSS hard-coded theme color fixes.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>Fixed fatal syntax errors (missing commas) in English, Traditional Chinese, and Japanese language packs that caused white-screen crashes on language switch.</li>
+                <li>Fixed animation finish timer leak by saving the setTimeout reference and clearing it on resetGame/startCompetitionRun.</li>
+                <li>Fixed isMoving flag not being reset during resetGame/startCompetitionRun, which could lock input.</li>
+                <li>Fixed double Enter-key trigger when modal confirm button has focus.</li>
+                <li>Added Enter-key confirmation to Rules and Guide modals.</li>
+                <li>Fixed Simplified Chinese splash tagline showing Japanese text; added missing Japanese and Traditional Chinese splash tagline translations.</li>
+                <li>Added "Back to Lobby" button in the game menu linking to hanazargames.com.</li>
+                <li>Added global focus-visible styles for keyboard navigation accessibility.</li>
+                <li>Added prefers-reduced-motion support.</li>
+                <li>Fixed multiple hard-coded CSS colors (competition overlay, settings panel, modal borders, toggle switches, etc.) so they correctly follow the active theme.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.4</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">Continued deep cleanup of hard-coded CSS theme colors, fixed a localization copy error, and improved keyboard interaction for the win and game-over dialogs.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>Fixed hard-coded colors in the competition start overlay, settings panel, modal borders, and toggle switches so they correctly follow the active theme.</li>
+                <li>Fixed the Simplified Chinese splash tagline incorrectly showing Japanese text.</li>
+                <li>Added the missing Japanese translation for the splash tagline.</li>
+                <li>Added Enter-key confirmation support to the game-over and win dialogs for smoother keyboard navigation.</li>
+                <li>Fixed a potential conflict between win-state detection and game-over detection so reaching 2048 always shows the win dialog first.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.3</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">UI consistency, localization completeness, and menu interaction fixes with a large batch of added Japanese translations.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>Fixed the CSS bug that permanently hid menu-item descriptions.</li>
+                <li>Fixed hard-coded border and shadow colors on rule cards and keycaps.</li>
+                <li>Fixed the Competition Mode "Start" button remaining untranslated in 13 languages.</li>
+                <li>Filled in missing Japanese translations for rules, announcements, guide, dialogs, and presets.</li>
+                <li>Cleaned up redundant branching in the key-normalization helper.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.2</div>
+            </div>
+            <div class="announcement-archive-date">2026-04-22</div>
+          </div>
+          <p class="announcement-archive-copy">A stability patch focused on result dialogs, large-number rendering, and default-settings state integrity.</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>Expand Details</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>Large-value tile numbers now scale more safely and are less likely to overflow the tile face.</li>
+                <li>The Japanese game-over dialog no longer repeats score information already shown in result cards.</li>
+                <li>Default helper-line settings no longer risk sharing nested state by reference.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -849,6 +1071,8 @@ const STRINGS = {
     splashLoading: "Loading cube board",
     splashReady: "Ready. Enter the game",
     enterGame: "Enter Game",
+    lobbyTitle: "Back to Lobby",
+    lobbyMeta: "hanazargames.com",
     toastRestarted: "New run started",
     toastBlocked: "No move in that direction",
     toastLanguage: "Language switched",
@@ -1013,6 +1237,8 @@ const STRINGS = {
     splashLoading: "キューブ盤面を読み込み中",
     splashReady: "準備完了。ゲームへ",
     enterGame: "ゲーム開始",
+    lobbyTitle: "ロビーへ戻る",
+    lobbyMeta: "hanazargames.com",
     toastRestarted: "新しいゲームを開始しました",
     toastBlocked: "その方向には動けません",
     toastLanguage: "言語を切り替えました",
@@ -1237,11 +1463,11 @@ const STRINGS = {
     announcementsTitle: "公告",
     announcementsSummary: `${APP_VERSION} · ${RELEASE_DATE}`,
     announcementsModalTitle: "更新公告",
-    announcementsModalIntro: "這是 3D 2048 的 V3.2.2 一次性更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
+    announcementsModalIntro: "這是 3D 2048 的 V3.2.6 更新公告。首次進站會自動展示一次，之後只會在你主動打開時查看。",
     announcementsDateLabel: "發布日期",
     announcementsVersionLabel: "版本號",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.1 的 bug 修復更新、V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
+    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.5 的穩定性修復與無障礙增強、V3.2.4 的視覺一致性與互動細節打磨、V3.2.3 的 UI 與本地化修復、V3.2.2 的穩定性修復、V3.2.1 的 bug 修復更新、V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回目前公告",
@@ -1250,23 +1476,133 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">這一版繼續做穩定性修復，重點收掉結果彈窗、大數字顯示和預設狀態裡幾個細碎但明顯的問題。</p>
+        <p class="about-copy">這一版修復了由上次更新引入的致命語法錯誤、動畫計時器洩漏、鍵盤互動雙重觸發等高危問題，補齊了 CSS 主題硬編碼顏色修復，並新增了回到大廳按鈕、焦點可見樣式與減少動畫支持。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新內容</div>
         <ul class="modal-list">
-          <li>修復高位數字在方塊面上的潛在溢出，超大數字縮放更穩。</li>
-          <li>修復日文失敗彈窗與結果卡片重複顯示結算資訊的問題。</li>
-          <li>修復預設輔助線設定的共享引用風險，避免局部狀態串聯。</li>
+          <li>修復英語、繁體中文、日語語言包中因缺少逗號導致的致命語法錯誤，避免切換語言時頁面白屏。</li>
+          <li>修復動畫結束計時器未保存引用的問題，解決重置遊戲或切換競賽模式時可能產生的狀態錯亂與重複彈窗。</li>
+          <li>修復重置遊戲和開始競賽時未重置 isMoving 標誌的問題，避免輸入被意外鎖死。</li>
+          <li>修復模態框確認按鈕獲得焦點時按 Enter 會雙重觸發回調的問題。</li>
+          <li>為規則彈窗和新手引導彈窗新增 Enter 鍵確認支持。</li>
+          <li>修復簡體中文開場標語誤用日文文案的問題，補充日文與繁體中文開場標語翻譯。</li>
+          <li>新增遊戲選單「回到大廳」按鈕，一鍵返回 Hanazar Games 主站。</li>
+          <li>新增全局焦點可見（focus-visible）樣式，提升鍵盤導航無障礙體驗。</li>
+          <li>新增系統級減少動畫（prefers-reduced-motion）支持，尊重用戶的無障礙偏好。</li>
+          <li>修復多處 CSS 硬編碼顏色（競賽遮罩、設定面板、模態框邊框、開關控件等），使其正確跟隨主題。</li>
         </ul>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">說明</div>
-        <p class="about-copy">V3.2.2 是純修復補丁版，不新增玩法，重點是把最近幾輪疊加出來的顯示與狀態問題收乾淨。</p>
+        <p class="about-copy">V3.2.6 是一個以穩定性修復與無障礙增強為主的補丁版本，重點消除語法級錯誤、清理動畫生命週期洩漏、修復 CSS 主題顏色硬編碼，並補齊鍵盤與動效無障礙支持。</p>
       </div>
     `,
     announcementsArchiveBody: `
       <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.5</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">修復致命語法錯誤、動畫計時器洩漏與鍵盤互動雙重觸發等高危問題，新增回到大廳按鈕、焦點可見樣式與減少動畫支持，並補齊 CSS 主題硬編碼顏色修復。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修復英語、繁體中文、日語語言包中因缺少逗號導致的致命語法錯誤，避免切換語言時頁面白屏。</li>
+                <li>修復動畫結束計時器未保存引用的問題，解決重置遊戲或切換競賽模式時可能產生的狀態錯亂與重複彈窗。</li>
+                <li>修復重置遊戲和開始競賽時未重置 isMoving 標誌的問題，避免輸入被意外鎖死。</li>
+                <li>修復模態框確認按鈕獲得焦點時按 Enter 會雙重觸發回調的問題。</li>
+                <li>為規則彈窗和新手引導彈窗新增 Enter 鍵確認支持。</li>
+                <li>修復簡體中文開場標語誤用日文文案的問題，補充日文與繁體中文開場標語翻譯。</li>
+                <li>新增遊戲選單「回到大廳」按鈕，一鍵返回 Hanazar Games 主站。</li>
+                <li>新增全局焦點可見（focus-visible）樣式，提升鍵盤導航無障礙體驗。</li>
+                <li>新增系統級減少動畫（prefers-reduced-motion）支持，尊重用戶的無障礙偏好。</li>
+                <li>修復多處 CSS 硬編碼顏色（競賽遮罩、設定面板、模態框邊框、開關控件等），使其正確跟隨主題。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.4</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">繼續深入修復了多處 CSS 主題硬编码顏色、本地化文案錯誤，並優化了遊戲結束與勝利彈窗的鍵盤互動體驗。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修復競賽開始遮罩、設定面板、模態框邊框、開關控件等多處 CSS 硬编码顏色，使其正確跟隨當前主題變化。</li>
+                <li>修復簡體中文開場標語誤用日文文案的問題，恢復為中文標語。</li>
+                <li>補充日文開場標語的缺失翻譯。</li>
+                <li>為遊戲結束與勝利彈窗新增 Enter 鍵快速確認支援，提升鍵盤操作流暢度。</li>
+                <li>修復勝利狀態檢測與遊戲結束狀態檢測的潛在衝突，確保達成 2048 時優先展示勝利提示。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.3</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">UI 一致性、本地化完整性與選單互動細節集中修復，補充大量日文翻譯。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修復選單項描述文字被 CSS 錯誤隱藏的問題。</li>
+                <li>修復規則卡片邊框與按鍵陰影顏色在切換非預設主題時未跟隨主題變化的問題。</li>
+                <li>修復競賽模式「開始」按鈕在 13 種語言下未本地化的問題。</li>
+                <li>補充日文介面中規則、公告、新手引導、勝利/失敗彈窗與預設說明等缺失翻譯。</li>
+                <li>清理按鍵規範化函數的冗餘分支邏輯。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.2</div>
+            </div>
+            <div class="announcement-archive-date">2026-04-22</div>
+          </div>
+          <p class="announcement-archive-copy">穩定性修復補丁，重點處理結果彈窗、數字顯示和預設設定狀態裡的細碎問題。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>展開詳細內容</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>修復高位數字在方塊面上的潛在溢出，超大數字縮放更穩。</li>
+                <li>修復日文失敗彈窗與結果卡片重複顯示結算資訊的問題。</li>
+                <li>修復預設輔助線設定的共享引用風險，避免局部狀態串聯。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
         <div class="picker-card announcement-archive-entry">
           <div class="announcement-archive-head">
             <div>
@@ -1370,31 +1706,31 @@ const STRINGS = {
     settingSplashCopy: "進站時播放 Hanazar Games 與 3D 2048 的開場片頭。",
     settingTimer: "啟用計時器",
     settingTimerCopy: "在頂部顯示本局計時。一般模式會在第一次有效移動後開始，競賽模式則從按下開始按鈕後開始。",
-shortcutsTitle: "快捷鍵",
-shortcutsSummary: "移動與功能鍵自訂",
-shortcutsModalTitle: "快捷鍵設定",
-shortcutsModalIntro: "點一下按鍵按鈕後，再按鍵盤上的新按鍵完成綁定。按 Esc 取消，按 Backspace 或 Delete 清除。",
-shortcutMovementTitle: "移動",
-shortcutInterfaceTitle: "介面與功能",
-captureReady: "點擊錄製",
-captureWaiting: "按下新按鍵…",
-shortcutMoveLeft: "向左移動",
-shortcutMoveRight: "向右移動",
-shortcutMoveUp: "向上移動",
-shortcutMoveDown: "向下移動",
-shortcutDepthForward: "向前縱深",
-shortcutDepthBack: "向後縱深",
-shortcutOpenMenu: "打開選單",
-shortcutRestart: "重新開始",
-shortcutOpenRules: "打開規則",
-shortcutOpenSettings: "打開遊戲設定",
-shortcutOpenStyle: "打開樣式設定",
-shortcutOpenLanguage: "打開語言設定",
-shortcutOpenShortcuts: "打開快捷鍵設定",
-shortcutOpenAbout: "打開關於資訊",
-toastShortcutSaved: "快捷鍵已更新",
-toastShortcutCleared: "快捷鍵已清除",
-shortcutUnassigned: "未設定",
+    shortcutsTitle: "快捷鍵",
+    shortcutsSummary: "移動與功能鍵自訂",
+    shortcutsModalTitle: "快捷鍵設定",
+    shortcutsModalIntro: "點一下按鍵按鈕後，再按鍵盤上的新按鍵完成綁定。按 Esc 取消，按 Backspace 或 Delete 清除。",
+    shortcutMovementTitle: "移動",
+    shortcutInterfaceTitle: "介面與功能",
+    captureReady: "點擊錄製",
+    captureWaiting: "按下新按鍵…",
+    shortcutMoveLeft: "向左移動",
+    shortcutMoveRight: "向右移動",
+    shortcutMoveUp: "向上移動",
+    shortcutMoveDown: "向下移動",
+    shortcutDepthForward: "向前縱深",
+    shortcutDepthBack: "向後縱深",
+    shortcutOpenMenu: "打開選單",
+    shortcutRestart: "重新開始",
+    shortcutOpenRules: "打開規則",
+    shortcutOpenSettings: "打開遊戲設定",
+    shortcutOpenStyle: "打開樣式設定",
+    shortcutOpenLanguage: "打開語言設定",
+    shortcutOpenShortcuts: "打開快捷鍵設定",
+    shortcutOpenAbout: "打開關於資訊",
+    toastShortcutSaved: "快捷鍵已更新",
+    toastShortcutCleared: "快捷鍵已清除",
+    shortcutUnassigned: "未設定",
     languageTitle: "語言",
     styleTitle: "樣式",
     toneLight: "淺色",
@@ -1407,9 +1743,12 @@ shortcutUnassigned: "未設定",
     themeBlue: "蒼藍",
     themeViolet: "紫曜",
     settingsSummary: (enabled, total) => `已開啟 ${enabled}/${total}`,
+    splashTagline: "立體方格，無限組合。",
     splashLoading: "正在載入立方棋盤",
     splashReady: "準備完成，進入遊戲",
     enterGame: "進入遊戲",
+    lobbyTitle: "回到大廳",
+    lobbyMeta: "hanazargames.com",
     toastRestarted: "已重新開始",
     toastBlocked: "該方向無法移動",
     toastLanguage: "語言已切換",
@@ -1666,10 +2005,11 @@ shortcutUnassigned: "未設定",
 
 const LANGUAGE_ENHANCEMENTS = {
   ja: {
+    splashTagline: "立体のマス目に、無限の組み合わせ",
     announcementsTitle: "お知らせ",
     announcementsModalTitle: "更新のお知らせ",
     announcementsHistoryTitle: "過去のお知らせ",
-    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.1 のバグ修正更新、V3.2.0 のタイマー・競技モード更新、さらに前の V3.1.1 サイト刷新内容を確認できます。",
+    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.5 の安定性修正とアクセシビリティ強化、V3.2.4 の視覚的一貫性とインタラクション細部の磨き上げ、V3.2.3 の UI とローカライズ修正、V3.2.2 の安定性修正、V3.2.1 のバグ修正更新、V3.2.0 のタイマー・競技モード更新、さらに前の V3.1.1 サイト刷新内容を確認できます。",
     announcementsHistoryAction: "履歴一覧を見る",
     announcementsArchiveTitle: "過去のお知らせ",
     announcementsArchiveBack: "現在のお知らせへ戻る",
@@ -1706,6 +2046,218 @@ const LANGUAGE_ENHANCEMENTS = {
     competitionStartButton: "開始",
     resetDefaultsTitle: "すべて初期化",
     resetDefaultsAction: "初期化する",
+    announcementsModalIntro: "これは 3D 2048 V3.2.6 の更新のお知らせです。初回アクセス時に一度だけ自動表示され、以降は手動で開いたときのみ表示されます。",
+    announcementsConfirm: "了解しました",
+    aboutVersionCopy: `現在のバージョン：${APP_VERSION} · リリース日：${RELEASE_DATE}`,
+    splashProfessionalSuffix: "プロフェッショナル",
+    presetProfessionalCopy: "外枠ガイドをオン、タイルエッジを 3x に設定、操作ヒントと移動不可通知をオフにし、軽量アニメーションを有効化、カメラ滑らかさを 25% に設定、タイマーを有効化、イントロ演出を維持し Professional タイトルに切り替え、すべてのショートカットをデフォルトに戻します。",
+    presetEntertainmentCopy: "現在のテーマカラーを変更せずに、デフォルトのゲームプレイ設定とデフォルトのショートカットを復元します。ガイド線とタイルエッジ設定はデフォルトに戻ります。",
+    announcementsBody: `
+      <div class="picker-card">
+        <div class="picker-grid-title">Version</div>
+        <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
+        <p class="picker-card-copy">${RELEASE_DATE}</p>
+        <p class="about-copy">このバージョンでは、前回の更新で混入した致命的な構文エラー、アニメーションタイマーリーク、キーボード操作の二重発火などの重大な問題を修正し、CSS テーマの硬编码色修正を補完し、ロビーへ戻るボタン、フォーカス可視スタイル、動作軽減対応を追加しました。</p>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">変更内容</div>
+        <ul class="modal-list">
+          <li>英語、繁体字中国語、日本語の言語パックに含まれていた致命的な構文エラー（カンマ欠落）を修正し、言語切り替え時の白画面クラッシュを解消。</li>
+          <li>アニメーション終了タイマーのリークを修正。setTimeout の参照を保存し、resetGame / startCompetitionRun 時にクリアするようにしました。</li>
+          <li>resetGame / startCompetitionRun 時に isMoving フラグがリセットされず、入力がロックされる可能性があった問題を修正。</li>
+          <li>モーダルの確認ボタンにフォーカスがある状態で Enter キーを押すとコールバックが二重に発火する問題を修正。</li>
+          <li>ルールモーダルとガイドモーダルに Enter キーでの確認操作を追加。</li>
+          <li>簡体字中国語のスプラッシュ标语に日本語文案が表示されていた問題を修正。日本語と繁体字中国語のスプラッシュ标语翻訳を補完。</li>
+          <li>ゲームメニューに「ロビーへ戻る」ボタンを追加。hanazargames.com へリンクします。</li>
+          <li>キーボードナビゲーションのアクセシビリティ向上のため、グローバルなフォーカス可視（focus-visible）スタイルを追加。</li>
+          <li>prefers-reduced-motion（動作軽減）への対応を追加。</li>
+          <li>競技開始オーバーレイ、設定パネル、モーダル枠線、トグルスイッチなど、複数の CSS 硬编码色を修正し、現在のテーマに正しく追従するようにしました。</li>
+        </ul>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">補足</div>
+        <p class="about-copy">V3.2.6 は安定性修正とアクセシビリティ強化を中心としたパッチバージョンです。構文レベルのクラッシュを排除し、アニメーションライフサイクルのリークをクリーンアップし、CSS テーマの硬编码色を修正し、キーボードと動作のアクセシビリティ対応を完了させることを目的としています。</p>
+      </div>
+    `,
+    announcementsArchiveBody: `
+      <div class="announcement-archive-list">
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.5</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">致命的な構文エラー、アニメーションタイマーリーク、キーボード操作の二重発火を修正。ロビーへ戻るボタン、フォーカス可視スタイル、動作軽減対応を追加し、CSS テーマの硬编码色修正を補完。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>英語、繁体字中国語、日本語の言語パックに含まれていた致命的な構文エラー（カンマ欠落）を修正し、言語切り替え時の白画面クラッシュを解消。</li>
+                <li>アニメーション終了タイマーのリークを修正。setTimeout の参照を保存し、resetGame / startCompetitionRun 時にクリアするようにしました。</li>
+                <li>resetGame / startCompetitionRun 時に isMoving フラグがリセットされず、入力がロックされる可能性があった問題を修正。</li>
+                <li>モーダルの確認ボタンにフォーカスがある状態で Enter キーを押すとコールバックが二重に発火する問題を修正。</li>
+                <li>ルールモーダルとガイドモーダルに Enter キーでの確認操作を追加。</li>
+                <li>簡体字中国語のスプラッシュ标语に日本語文案が表示されていた問題を修正。日本語と繁体字中国語のスプラッシュ标语翻訳を補完。</li>
+                <li>ゲームメニューに「ロビーへ戻る」ボタンを追加。hanazargames.com へリンクします。</li>
+                <li>キーボードナビゲーションのアクセシビリティ向上のため、グローバルなフォーカス可視（focus-visible）スタイルを追加。</li>
+                <li>prefers-reduced-motion（動作軽減）への対応を追加。</li>
+                <li>競技開始オーバーレイ、設定パネル、モーダル枠線、トグルスイッチなど、複数の CSS 硬编码色を修正し、現在のテーマに正しく追従するようにしました。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.4</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">CSS のテーマ硬编码色、ローカライズ文案ミスをさらに深く修正し、ゲーム終了と勝利ダイアログのキーボード操作体験を最適化しました。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>競技開始オーバーレイ、設定パネル、モーダル枠線、トグルスイッチなど、複数の CSS 硬编码色を修正し、現在のテーマに正しく追従するようにしました。</li>
+                <li>簡体字中国語のオープニング标语に日本語文案が誤って表示されていた問題を修正。</li>
+                <li>日本語のオープニング标语の欠落翻訳を補完。</li>
+                <li>ゲーム終了と勝利ダイアログに Enter キーでのクイック確認を追加し、キーボード操作の流暢さを向上。</li>
+                <li>勝利状態検出とゲーム終了状態検出の潜在的な競合を修正し、2048 到達時に必ず勝利ダイアログが優先して表示されるようにしました。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.3</div>
+            </div>
+            <div class="announcement-archive-date">2026-05-08</div>
+          </div>
+          <p class="announcement-archive-copy">UI の一貫性、ローカライズの完全性、メニューのインタラクション細部を集中修正し、多数の日本語翻訳を追加。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>メニュー項目の説明文が CSS のバグで常に非表示になっていた問題を修正。</li>
+                <li>ルールカードの枠線とキーキャップの影の色がデフォルト以外のテーマに切り替えても変わらない問題を修正。</li>
+                <li>競技モードの「開始」ボタンが 13 の言語で翻訳されていなかった問題を修正。</li>
+                <li>ルール、お知らせ、初回ガイド、勝利/失敗ダイアログ、プリセット説明など、欠落していた日本語翻訳を補完。</li>
+                <li>キー正規化関数の冗長な分岐を整理。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.2</div>
+            </div>
+            <div class="announcement-archive-date">2026-04-22</div>
+          </div>
+          <p class="announcement-archive-copy">結果ダイアログ、大きな数字の表示、デフォルト設定の状態整合性に焦点を当てた安定性パッチ。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>大きな値のタイル数字がタイル面からはみ出す潜在的な問題を修正。超大数字の縮小表示を安定化。</li>
+                <li>日本語のゲームオーバーダイアログが結果カードに既に表示されているスコア情報を繰り返し表示していた問題を修正。</li>
+                <li>デフォルトの補助線設定が参照によるネストされた状態の共有リスクを抱えていた問題を修正。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">お知らせシステムを現在のお知らせ＋履歴リストの構造に変更し、結果ダイアログを初めて整理したバージョン。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>最新のお知らせと過去のお知らせリスト構造が初めて導入されました。</li>
+                <li>アーカイブされたお知らせがサイト内で直接閲覧できるようになりました。</li>
+                <li>結果ダイアログがタイマー、スコア、最高スコアの表示で統一されました。</li>
+                <li>メニュー、About パネル、お知らせのバージョンテキストが初めて同期されました。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.2.0</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-25</div>
+          </div>
+          <p class="announcement-archive-copy">タイマー対応、競技モード、結果統計ダイアログ、サイト内お知らせ履歴が初めて導入されました。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>タイマーシステムが追加され、プロモードと競技モードに組み込まれました。</li>
+                <li>競技モードでは開始ゲート、開始ボタン、移動専用ショートカット、移動アニメーション無効化が導入されました。</li>
+                <li>カメラの滑らかさとマウスドラッグ感度が新しい制御設定として追加されました。</li>
+                <li>勝利と失敗ダイアログに初めて経過時間、スコア、最高スコアの結果サマリーが追加されました。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="picker-card announcement-archive-entry">
+          <div class="announcement-archive-head">
+            <div>
+              <div class="picker-grid-title">Version</div>
+              <div class="announcement-archive-version">3D 2048 V3.1.1</div>
+            </div>
+            <div class="announcement-archive-date">2026-03-24</div>
+          </div>
+          <p class="announcement-archive-copy">メニュー、プリセット、テーマ、言語、ショートカット、および幅広い設定可能な UI レイヤーを導入した大規模なサイトリフレッシュ。</p>
+          <details class="announcement-archive-details">
+            <summary class="announcement-archive-toggle">
+              <span>詳細を展開</span>
+              <span class="announcement-archive-arrow">›</span>
+            </summary>
+            <div class="announcement-archive-detail-body">
+              <ul class="modal-list">
+                <li>ルール、お知らせ、プリセット、スタイル、言語、ショートカット、About の完全なメニュー構造が初めて公開されました。</li>
+                <li>プロフェッショナルモードとエンタメモードのプリセット、補助線、アウトライン、アニメーション制御が追加されました。</li>
+                <li>マルチテーマ対応、多言語対応、初回訪問ガイド、イントロ演出フローが導入されました。</li>
+                <li>より良い数字の収まり、調整可能なアウトライン、より明確な補助線により、タイルの可読性が向上しました。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    `,
   },
   es: {
     announcementsTitle: "Anuncios",
@@ -1742,7 +2294,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Tiempo",
     competitionStartKicker: "Modo Competición",
     competitionStartTitle: "Listo para Empezar",
-    competitionStartButton: "Start",
+    competitionStartButton: "Empezar",
     resetDefaultsTitle: "Restaurar Todo",
     resetDefaultsAction: "Restaurar",
     optionOn: "Activado",
@@ -1783,7 +2335,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Temps",
     competitionStartKicker: "Mode Compétition",
     competitionStartTitle: "Prêt à Démarrer",
-    competitionStartButton: "Start",
+    competitionStartButton: "Commencer",
     resetDefaultsTitle: "Tout Réinitialiser",
     resetDefaultsAction: "Réinitialiser",
     optionOn: "Activé",
@@ -1824,7 +2376,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Zeit",
     competitionStartKicker: "Wettkampfmodus",
     competitionStartTitle: "Bereit zum Start",
-    competitionStartButton: "Start",
+    competitionStartButton: "Starten",
     resetDefaultsTitle: "Alles Zurücksetzen",
     resetDefaultsAction: "Zurücksetzen",
     optionOn: "Ein",
@@ -1865,7 +2417,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "타이머",
     competitionStartKicker: "경쟁 모드",
     competitionStartTitle: "시작 준비 완료",
-    competitionStartButton: "Start",
+    competitionStartButton: "시작",
     resetDefaultsTitle: "전체 기본값 복원",
     resetDefaultsAction: "기본값 복원",
     optionOn: "켜기",
@@ -1906,7 +2458,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Tempo",
     competitionStartKicker: "Modo Competição",
     competitionStartTitle: "Pronto para Começar",
-    competitionStartButton: "Start",
+    competitionStartButton: "Iniciar",
     resetDefaultsTitle: "Restaurar Tudo",
     resetDefaultsAction: "Restaurar",
     optionOn: "Ligado",
@@ -1947,7 +2499,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Tempo",
     competitionStartKicker: "Modalità Competizione",
     competitionStartTitle: "Pronto a Partire",
-    competitionStartButton: "Start",
+    competitionStartButton: "Inizia",
     resetDefaultsTitle: "Ripristina Tutto",
     resetDefaultsAction: "Ripristina",
     optionOn: "Attivo",
@@ -1988,7 +2540,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Время",
     competitionStartKicker: "Соревновательный режим",
     competitionStartTitle: "Готово к старту",
-    competitionStartButton: "Start",
+    competitionStartButton: "Начать",
     resetDefaultsTitle: "Сбросить Всё",
     resetDefaultsAction: "Сбросить",
     optionOn: "Вкл",
@@ -2029,7 +2581,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "الوقت",
     competitionStartKicker: "وضع المنافسة",
     competitionStartTitle: "جاهز للبدء",
-    competitionStartButton: "Start",
+    competitionStartButton: "ابدأ",
     resetDefaultsTitle: "استعادة الافتراضي",
     resetDefaultsAction: "استعادة",
     optionOn: "تشغيل",
@@ -2070,7 +2622,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "समय",
     competitionStartKicker: "प्रतियोगिता मोड",
     competitionStartTitle: "शुरू करने के लिए तैयार",
-    competitionStartButton: "Start",
+    competitionStartButton: "शुरू करें",
     resetDefaultsTitle: "सभी डिफ़ॉल्ट बहाल करें",
     resetDefaultsAction: "बहाल करें",
     optionOn: "चालू",
@@ -2111,7 +2663,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Waktu",
     competitionStartKicker: "Mode Kompetisi",
     competitionStartTitle: "Siap Memulai",
-    competitionStartButton: "Start",
+    competitionStartButton: "Mulai",
     resetDefaultsTitle: "Pulihkan Semua",
     resetDefaultsAction: "Pulihkan",
     optionOn: "Aktif",
@@ -2152,7 +2704,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Süre",
     competitionStartKicker: "Yarış Modu",
     competitionStartTitle: "Başlamaya Hazır",
-    competitionStartButton: "Start",
+    competitionStartButton: "Başla",
     resetDefaultsTitle: "Tümünü Sıfırla",
     resetDefaultsAction: "Sıfırla",
     optionOn: "Açık",
@@ -2193,7 +2745,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "Thời gian",
     competitionStartKicker: "Chế độ Thi đấu",
     competitionStartTitle: "Sẵn sàng Bắt đầu",
-    competitionStartButton: "Start",
+    competitionStartButton: "Bắt đầu",
     resetDefaultsTitle: "Khôi phục Mặc định",
     resetDefaultsAction: "Khôi phục",
     optionOn: "Bật",
@@ -2234,7 +2786,7 @@ const LANGUAGE_ENHANCEMENTS = {
     timerLabel: "เวลา",
     competitionStartKicker: "โหมดแข่งขัน",
     competitionStartTitle: "พร้อมเริ่ม",
-    competitionStartButton: "Start",
+    competitionStartButton: "เริ่ม",
     resetDefaultsTitle: "คืนค่าเริ่มต้นทั้งหมด",
     resetDefaultsAction: "คืนค่าเริ่มต้น",
     optionOn: "เปิด",
@@ -2303,6 +2855,7 @@ let tileEdgeGeometry;
 let tileMeshes = new Map();
 let activeAnimations = [];
 let isMoving = false;
+let animationFinishTimer = null;
 
 const state = {
   size: SIZE,
@@ -2460,6 +3013,8 @@ function gridHasTiles(grid = state.grid) {
 }
 
 function resetGame() {
+  window.clearTimeout(animationFinishTimer);
+  isMoving = false;
   state.grid = createGrid(state.size);
   state.score = 0;
   state.won = false;
@@ -2484,6 +3039,8 @@ function resetGame() {
 
 function startCompetitionRun() {
   if (!state.awaitingCompetitionStart || !state.splashFinished) return;
+  window.clearTimeout(animationFinishTimer);
+  isMoving = false;
   state.grid = createGrid(state.size);
   state.score = 0;
   state.won = false;
@@ -2610,6 +3167,7 @@ function onKeyDown(e) {
     modalEnterConfirmEnabled &&
     typeof modalConfirmAction === "function"
   ) {
+    if (document.activeElement === modalConfirm) return;
     e.preventDefault();
     modalConfirmAction();
     return;
@@ -2661,7 +3219,7 @@ function onKeyDown(e) {
 }
 
 function normalizeBindingKey(key) {
-  return key.length === 1 ? key.toLowerCase() : key.toLowerCase();
+  return key.toLowerCase();
 }
 
 function getActionForKey(key) {
@@ -2901,7 +3459,7 @@ function animateTransitions(transitions) {
   });
 
   const longest = activeAnimations.length ? Math.max(...activeAnimations.map((a) => a.duration)) : 0;
-  window.setTimeout(() => {
+  animationFinishTimer = window.setTimeout(() => {
     isMoving = false;
     cleanupMeshes();
     checkGameState();
@@ -3336,14 +3894,17 @@ function showToast(message) {
 }
 
 function checkGameState() {
-  if (!state.won && getMaxTile(state.grid) >= 2048) {
+  const justWon = !state.won && getMaxTile(state.grid) >= 2048;
+  if (justWon) {
     state.won = true;
-    showWinModal();
-    return;
   }
   if (!hasMoves(state.grid)) {
     state.gameOver = true;
     showGameOverModal();
+    return;
+  }
+  if (justWon) {
+    showWinModal();
   }
 }
 
@@ -3356,6 +3917,7 @@ function showGameOverModal() {
     confirmText: text.gameOverConfirm,
     cancelText: text.gameOverCancel,
     showCancel: true,
+    allowEnterConfirm: true,
     onConfirm: () => {
       resetGame();
     },
@@ -3372,6 +3934,7 @@ function showWinModal() {
     confirmText: text.winConfirm,
     cancelText: text.winCancel,
     showCancel: true,
+    allowEnterConfirm: true,
     onConfirm: () => {
       hideModal();
       if (shouldResumeTimer && !state.gameOver && !state.awaitingCompetitionStart) {
@@ -3422,6 +3985,7 @@ function showRulesModal() {
     confirmText: strings().rulesModalConfirm,
     cancelText: strings().rulesModalCancel,
     showCancel: true,
+    allowEnterConfirm: true,
     onConfirm: () => hideModal(),
     onCancel: () => {
       hideModal();
@@ -3557,6 +4121,7 @@ function showGuideModal() {
     bodyHtml: strings().guideBody,
     confirmText: strings().guideConfirm,
     showCancel: false,
+    allowEnterConfirm: true,
     onConfirm: () => {
       markGuideSeen();
       hideModal();
@@ -4122,6 +4687,8 @@ function applyLanguage() {
   setText("section-shortcuts-title", text.shortcutsTitle ?? "Shortcuts");
   setText("section-style-title", text.styleTitle);
   setText("section-about-title", text.aboutTitle ?? "About");
+  setText("section-lobby-title", text.lobbyTitle ?? "Back to Lobby");
+  setText("menu-lobby-meta", text.lobbyMeta ?? "hanazargames.com");
   setText("splash-brand", text.splashBrand);
   setText("splash-title", getSplashTitle(text));
   setText("splash-tagline", text.splashTagline);

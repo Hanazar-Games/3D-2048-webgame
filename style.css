@@ -84,7 +84,11 @@ body.app-locked {
 }
 
 body.hints-hidden #hint-text {
-  display: none;
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 button,
@@ -263,7 +267,7 @@ button:active,
   padding: 24px;
   background:
     radial-gradient(circle at 50% 20%, var(--page-glow-accent), transparent 32%),
-    linear-gradient(180deg, rgba(20, 13, 8, 0.22), rgba(20, 13, 8, 0.44));
+    linear-gradient(180deg, var(--overlay-bg), var(--overlay-bg));
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.22s ease;
@@ -374,7 +378,7 @@ button:active,
   padding: 24px;
   background: linear-gradient(180deg, var(--shell-start), var(--shell-end));
   border-left: 1px solid var(--shell-border);
-  box-shadow: -24px 0 80px rgba(82, 53, 24, 0.16);
+  box-shadow: -24px 0 80px rgba(0, 0, 0, 0.16);
   overflow-y: auto;
   opacity: 0;
   pointer-events: none;
@@ -483,7 +487,8 @@ button:active,
     var(--shadow-soft);
 }
 
-.menu-nav-button {
+.menu-nav-button,
+.lobby-link {
   justify-content: space-between;
   width: 100%;
   min-height: 72px;
@@ -496,6 +501,7 @@ button:active,
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     0 12px 24px rgba(0, 0, 0, 0.06);
   text-align: left;
+  text-decoration: none;
 }
 
 .menu-nav-copy {
@@ -542,7 +548,7 @@ button:active,
 }
 
 .toggle-row + .toggle-row {
-  border-top: 1px solid rgba(100, 68, 34, 0.08);
+  border-top: 1px solid var(--line);
 }
 
 .toggle-title {
@@ -555,7 +561,7 @@ button:active,
   appearance: none;
   position: relative;
   border-radius: 999px;
-  background: rgba(120, 90, 54, 0.18);
+  background: var(--line);
   transition: background 0.18s ease;
 }
 
@@ -567,8 +573,8 @@ button:active,
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(51, 36, 19, 0.18);
+  background: var(--button-text);
+  box-shadow: var(--shadow-soft);
   transition: transform 0.18s ease;
 }
 
@@ -605,7 +611,7 @@ button:active,
 .tone-option.active,
 .style-option.active {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  color: #fffaf2;
+  color: var(--button-text);
   border-color: transparent;
   box-shadow: var(--button-shadow);
 }
@@ -675,7 +681,7 @@ button:active,
 
 .language-option.active {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  color: #fffaf2;
+  color: var(--button-text);
   border-color: transparent;
   box-shadow: var(--button-shadow);
 }
@@ -702,7 +708,7 @@ button:active,
   padding: 24px;
   border-radius: 24px;
   background: var(--panel-strong);
-  border: 1px solid rgba(110, 75, 35, 0.12);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow);
   opacity: 0;
   transform: translateY(24px) scale(0.98);
@@ -918,7 +924,7 @@ button:active,
 
 .choice-button.active {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  color: #fffaf2;
+  color: var(--button-text);
   border-color: transparent;
   box-shadow: var(--button-shadow);
 }
@@ -1136,7 +1142,7 @@ button:active,
   padding: 14px 14px 15px;
   border-radius: 16px;
   background: var(--rule-card-bg);
-  border: 1px solid rgba(100, 68, 34, 0.1);
+  border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
 }
 
@@ -1171,7 +1177,7 @@ button:active,
   border: 1px solid var(--keycap-border);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 6px 18px rgba(99, 68, 30, 0.1);
+    0 6px 18px rgba(0, 0, 0, 0.08);
   color: var(--accent-deep);
   font-size: 13px;
   font-weight: 800;
@@ -1298,7 +1304,7 @@ button:active,
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--progress-start), var(--progress-end));
-  box-shadow: 0 0 22px rgba(240, 190, 119, 0.7);
+  box-shadow: 0 0 22px var(--accent-glow);
 }
 
 .splash-loading {
@@ -1433,5 +1439,33 @@ button:active,
   #canvas-container {
     height: calc(100vh - 236px);
     min-height: 420px;
+  }
+}
+
+button:focus-visible,
+.secondary-button:focus-visible,
+.icon-button:focus-visible,
+.menu-nav-button:focus-visible,
+.lobby-link:focus-visible,
+.choice-button:focus-visible,
+.language-option:focus-visible,
+.style-option:focus-visible,
+.tone-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.toggle-row input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
