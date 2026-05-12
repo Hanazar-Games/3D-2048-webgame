@@ -12,15 +12,17 @@ const SETTINGS_KEY = "settings3D2048";
 const KEYBINDINGS_KEY = "keybindings3D2048";
 const LANGUAGE_KEY = "language3D2048";
 const GUIDE_KEY = "guideSeen3D2048";
-const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.7";
-const APP_VERSION = "V3.2.7";
-const RELEASE_DATE = "2026-05-08";
+const ANNOUNCEMENT_KEY = "announcementSeen3D2048V3.2.8";
+const APP_VERSION = "V3.2.8";
+const RELEASE_DATE = "2026-05-12";
 const DEFAULT_SETTINGS = {
   showHints: true,
   reducedMotion: false,
   confirmRestart: true,
   showSplash: true,
   showTimer: false,
+  sfxEnabled: true,
+  bgmEnabled: false,
   animationSpeed: 1,
   cameraSmoothness: 75,
   dragSensitivity: 5,
@@ -219,6 +221,8 @@ const SETTINGS_CONFIG = [
   { key: "reducedMotion", labelKey: "settingMotion", copyKey: "settingMotionCopy", group: "animation" },
   { key: "showSplash", labelKey: "settingSplash", copyKey: "settingSplashCopy", group: "animation" },
   { key: "showTimer", labelKey: "settingTimer", copyKey: "settingTimerCopy", group: "timer" },
+  { key: "sfxEnabled", labelKey: "settingSfx", copyKey: "settingSfxCopy", group: "audio" },
+  { key: "bgmEnabled", labelKey: "settingBgm", copyKey: "settingBgmCopy", group: "audio" },
 ];
 const LIVE_SITE_URL = "https://hzagaming.github.io/3D-2048-webgame/";
 const GITHUB_PROFILE_URL = "https://github.com/hzagaming";
@@ -274,7 +278,7 @@ const STRINGS = {
     announcementsDateLabel: "发布日期",
     announcementsVersionLabel: "版本号",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.6 的稳定性修复与无障碍增强、V3.2.5 的稳定性修复与无障碍增强、V3.2.4 的视觉一致性与交互优化、V3.2.3 的 UI 与本地化修复、V3.2.2 的稳定性修复、V3.2.1 的 bug 修复更新、V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。","},{
+    announcementsHistoryCopy: "打开往期公告列表，回看 V3.2.6 的稳定性修复与无障碍增强、V3.2.5 的稳定性修复与无障碍增强、V3.2.4 的视觉一致性与交互优化、V3.2.3 的 UI 与本地化修复、V3.2.2 的稳定性修复、V3.2.1 的 bug 修复更新、V3.2.0 的计时与竞赛更新，以及更早的 V3.1.1 站点重构内容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回当前公告",
@@ -283,14 +287,16 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">修正日语与繁体中文公告中的本地化文案错误，修正菜单默认版本号显示。</p>
+        <p class="about-copy">全新音效与背景音乐系统上线，修复 zh-CN / zh-TW / ja 语言包中的致命语法错误，并优化多项 UI/UX 细节。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新内容</div>
         <ul class="modal-list">
-          <li>修正日语公告文案中混入的中文词汇（硬编码 → ハードコード、标语 → キャッチコピー）。</li>
-          <li>修正繁体中文历史公告中夹杂的简体字（编码 → 編碼）。</li>
-          <li>修正 index.html 中菜单公告 meta 的默认版本号显示。</li>
+          <li>新增音效系统：移动、合并、生成方块、胜利、失败、按钮点击与无法移动提示均配有独立音效。</li>
+          <li>新增背景音乐系统：使用 Web Audio API 生成舒缓的氛围音乐，支持独立开关。</li>
+          <li>在游戏设置中新增「音频」分组，可分别开关音效与背景音乐。</li>
+          <li>修复 zh-CN、zh-TW、ja 三个语言包中 <code>announcementsHistoryCopy</code> 后的致命语法错误（多余的 <code>","},{</code>），避免切换这些语言时页面白屏。</li>
+          <li>优化全局按钮点击反馈，所有可交互按钮均会触发点击音效。</li>
         </ul>
       </div>
     `,
@@ -533,6 +539,10 @@ const STRINGS = {
     settingSplashCopy: "进入网站时播放 Hanazar Games 与 3D 2048 的开场片头。",
     settingTimer: "启用计时器",
     settingTimerCopy: "在顶部显示当前局计时。普通模式下从第一次有效移动开始计时，竞赛模式下从点击开始按钮时计时。",
+    settingSfx: "音效",
+    settingSfxCopy: "为移动、合并、生成方块等操作添加音效反馈。",
+    settingBgm: "背景音乐",
+    settingBgmCopy: "播放舒缓的背景氛围音乐。",
     languageTitle: "语言",
     shortcutsTitle: "快捷键",
     shortcutsSummary: "移动与功能键自定义",
@@ -585,6 +595,8 @@ const STRINGS = {
     settingsGeneralTitle: "基础",
     settingsAnimationTitle: "动画",
     settingsTimerTitle: "计时器",
+    settingsAudioTitle: "音频",
+    settingsAudioIntro: "控制游戏音效与背景音乐。",
     settingsTimerIntro: "控制顶部计时显示与计时逻辑。竞赛模式会强制开启计时，并在点击开始后正式起表。",
     settingsAnimationIntro: "控制移动区域的节奏和过渡表现，下面的速度调节会同时影响滑动与生成动画。",
     animationSpeedLabel: "移动区域动画速度",
@@ -744,14 +756,16 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">Fixed mixed Chinese vocabulary in Japanese announcements and simplified characters in Traditional Chinese archive. Updated default version text in index.html.</p>
+        <p class="about-copy">Brand-new SFX and background music system, fixed fatal syntax errors in the zh-CN / zh-TW / ja language packs, and various UI/UX refinements.</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">What changed</div>
         <ul class="modal-list">
-          <li>Fixed mixed Chinese vocabulary in Japanese announcement copy (硬编码 → ハードコード, 标语 → キャッチコピー).</li>
-          <li>Fixed simplified characters in Traditional Chinese announcement archive (编码 → 編碼).</li>
-          <li>Updated default version text in index.html menu announcement meta.</li>
+          <li>Added a full SFX system: unique sounds for sliding, merging, spawning, winning, losing, button clicks, and blocked moves.</li>
+          <li>Added a background music system: calm ambient BGM generated via Web Audio API with independent on/off toggle.</li>
+          <li>New "Audio" section in Game Settings lets you control sound effects and background music separately.</li>
+          <li>Fixed fatal syntax errors after <code>announcementsHistoryCopy</code> in the zh-CN, zh-TW, and ja language packs (stray <code>","},{</code>) that caused white-screen crashes when switching to those languages.</li>
+          <li>Improved global button click feedback: every interactive button now triggers a subtle click sound.</li>
         </ul>
       </div>
     `,
@@ -993,6 +1007,10 @@ const STRINGS = {
     settingSplashCopy: "Play the Hanazar Games intro sequence before entering the game.",
     settingTimer: "Enable timer",
     settingTimerCopy: "Show a run timer in the top bar. Standard play starts timing from the first valid move, while competition mode starts on the Start button.",
+    settingSfx: "Sound Effects",
+    settingSfxCopy: "Add audio feedback for moves, merges, and tile spawns.",
+    settingBgm: "Background Music",
+    settingBgmCopy: "Play a calm ambient background track.",
     languageTitle: "Language",
     shortcutsTitle: "Shortcuts",
     shortcutsSummary: "Custom movement and utility keys",
@@ -1045,6 +1063,8 @@ const STRINGS = {
     settingsGeneralTitle: "General",
     settingsAnimationTitle: "Animation",
     settingsTimerTitle: "Timer",
+    settingsAudioTitle: "Audio",
+    settingsAudioIntro: "Control sound effects and background music.",
     settingsTimerIntro: "Control the run timer display and timing behavior. Competition mode forces the timer on and starts it only after pressing Start.",
     settingsAnimationIntro: "Tune how quickly tiles move through space. The speed control affects both slide and spawn transitions.",
     animationSpeedLabel: "Move Animation Speed",
@@ -1200,6 +1220,10 @@ const STRINGS = {
     settingSplashCopy: "ゲーム開始前に Hanazar Games のイントロ演出を表示します。",
     settingTimer: "タイマーを有効化",
     settingTimerCopy: "上部にプレイ時間を表示します。通常は最初の有効移動から、競技モードでは開始ボタンから計測します。",
+    settingSfx: "効果音",
+    settingSfxCopy: "移動、合体、出現などの操作に効果音を追加します。",
+    settingBgm: "BGM",
+    settingBgmCopy: "穏やかな背景音楽を再生します。",
     languageTitle: "言語",
     langZh: "简体中文",
     langEn: "English",
@@ -1227,6 +1251,8 @@ const STRINGS = {
     settingsGeneralTitle: "基本",
     settingsAnimationTitle: "アニメーション",
     settingsTimerTitle: "タイマー",
+    settingsAudioTitle: "オーディオ",
+    settingsAudioIntro: "効果音と背景音楽を調整します。",
     settingsTimerIntro: "タイマー表示と計測の開始方法を調整します。競技モードではタイマーが強制的に有効になります。",
     settingsAnimationIntro: "タイルの移動と出現のテンポを調整します。下の速度設定は両方に反映されます。",
     animationSpeedLabel: "移動アニメーション速度",
@@ -1505,7 +1531,7 @@ const STRINGS = {
     announcementsDateLabel: "發布日期",
     announcementsVersionLabel: "版本號",
     announcementsHistoryTitle: "往期公告",
-    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.6 的穩定性修復與無障礙增強、V3.2.5 的穩定性修復與無障礙增強、V3.2.4 的視覺一致性與互動細節打磨、V3.2.3 的 UI 與本地化修復、V3.2.2 的穩定性修復、V3.2.1 的 bug 修復更新、V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。","},{
+    announcementsHistoryCopy: "打開往期公告列表，回看 V3.2.6 的穩定性修復與無障礙增強、V3.2.5 的穩定性修復與無障礙增強、V3.2.4 的視覺一致性與互動細節打磨、V3.2.3 的 UI 與本地化修復、V3.2.2 的穩定性修復、V3.2.1 的 bug 修復更新、V3.2.0 的計時與競賽更新，以及更早的 V3.1.1 站點重構內容。",
     announcementsHistoryAction: "查看往期公告列表",
     announcementsArchiveTitle: "往期公告",
     announcementsArchiveBack: "返回目前公告",
@@ -1514,14 +1540,16 @@ const STRINGS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">修正日文公告文案中的中文詞彙混用，修正歷史公告中的簡體字，更新選單預設版本號顯示。</p>
+        <p class="about-copy">全新音效與背景音樂系統上線，修復 zh-CN / zh-TW / ja 語言包中的致命語法錯誤，並優化多項 UI/UX 細節。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">本次更新內容</div>
         <ul class="modal-list">
-          <li>修正日文公告文案中混入的中文詞彙（硬编码 → ハードコード、标语 → キャッチコピー）。</li>
-          <li>修正繁體中文歷史公告中夾雜的簡體字（编码 → 編碼）。</li>
-          <li>修正 index.html 中選單公告 meta 的預設版本號顯示。</li>
+          <li>新增音效系統：移動、合併、生成方塊、勝利、失敗、按鈕點擊與無法移動提示均配有獨立音效。</li>
+          <li>新增背景音樂系統：使用 Web Audio API 生成舒緩的氛圍音樂，支援獨立開關。</li>
+          <li>在遊戲設定中新增「音訊」分組，可分別開關音效與背景音樂。</li>
+          <li>修復 zh-CN、zh-TW、ja 三個語言包中 <code>announcementsHistoryCopy</code> 後的致命語法錯誤（多餘的 <code>","},{</code>），避免切換這些語言時頁面白屏。</li>
+          <li>優化全域按鈕點擊回饋，所有可互動按鈕均會觸發點擊音效。</li>
         </ul>
       </div>
     `,
@@ -1837,6 +1865,8 @@ const STRINGS = {
     settingsAnimationTitle: "動畫",
     settingsGeneralTitle: "基礎",
     settingsTimerTitle: "計時器",
+    settingsAudioTitle: "音訊",
+    settingsAudioIntro: "控制遊戲音效與背景音樂。",
     settingsTimerIntro: "控制頂部計時顯示與起表邏輯。競賽模式會強制開啟計時，並在點擊開始後才正式計時。",
     settingsAnimationIntro: "控制移動區域的節奏與過渡表現，下面的速度設定會同時影響滑動與生成動畫。",
     animationSpeedLabel: "移動區域動畫速度",
@@ -2066,7 +2096,7 @@ const LANGUAGE_ENHANCEMENTS = {
     announcementsTitle: "お知らせ",
     announcementsModalTitle: "更新のお知らせ",
     announcementsHistoryTitle: "過去のお知らせ",
-    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.6 の安定性修正とアクセシビリティ強化、V3.2.5 の安定性修正とアクセシビリティ強化、V3.2.4 の視覚的一貫性とインタラクション細部の磨き上げ、V3.2.3 の UI とローカライズ修正、V3.2.2 の安定性修正、V3.2.1 のバグ修正更新、V3.2.0 のタイマー・競技モード更新、さらに前の V3.1.1 サイト刷新内容を確認できます。","},{
+    announcementsHistoryCopy: "履歴一覧を開いて、V3.2.6 の安定性修正とアクセシビリティ強化、V3.2.5 の安定性修正とアクセシビリティ強化、V3.2.4 の視覚的一貫性とインタラクション細部の磨き上げ、V3.2.3 の UI とローカライズ修正、V3.2.2 の安定性修正、V3.2.1 のバグ修正更新、V3.2.0 のタイマー・競技モード更新、さらに前の V3.1.1 サイト刷新内容を確認できます。",
     announcementsHistoryAction: "履歴一覧を見る",
     announcementsArchiveTitle: "過去のお知らせ",
     announcementsArchiveBack: "現在のお知らせへ戻る",
@@ -2089,6 +2119,10 @@ const LANGUAGE_ENHANCEMENTS = {
     aboutSummary: "Hanazar Software · 権利とオープンソース",
     settingTimer: "タイマーを有効化",
     settingsTimerTitle: "タイマー",
+    settingSfx: "効果音",
+    settingSfxCopy: "移動、合体、出現などの操作に効果音を追加します。",
+    settingBgm: "BGM",
+    settingBgmCopy: "穏やかな背景音楽を再生します。",
     cameraSmoothnessLabel: "カメラの滑らかさ",
     cameraSmoothnessCopy: "0% ではマウス位置へ即座に追従し、100% では最大限になめらかに追従します。",
     cameraSmoothnessShort: (value) => `滑らかさ ${value}`,
@@ -2103,7 +2137,7 @@ const LANGUAGE_ENHANCEMENTS = {
     competitionStartButton: "開始",
     resetDefaultsTitle: "すべて初期化",
     resetDefaultsAction: "初期化する",
-    announcementsModalIntro: "これは 3D 2048 V3.2.7 の更新のお知らせです。初回アクセス時に一度だけ自動表示され、以降は手動で開いたときのみ表示されます。",
+    announcementsModalIntro: `これは 3D 2048 ${APP_VERSION} の更新のお知らせです。初回アクセス時に一度だけ自動表示され、以降は手動で開いたときのみ表示されます。`,
     announcementsConfirm: "了解しました",
     aboutVersionCopy: `現在のバージョン：${APP_VERSION} · リリース日：${RELEASE_DATE}`,
     splashProfessionalSuffix: "プロフェッショナル",
@@ -2114,14 +2148,16 @@ const LANGUAGE_ENHANCEMENTS = {
         <div class="picker-grid-title">Version</div>
         <div class="picker-card-title">3D 2048 ${APP_VERSION}</div>
         <p class="picker-card-copy">${RELEASE_DATE}</p>
-        <p class="about-copy">日本語のお知らせ文案に混入していた中国語表現を修正し、繁体中文の履歴に含まれていた簡体字を正しました。</p>
+        <p class="about-copy">新しい効果音と背景音楽システムを追加し、zh-CN / zh-TW / ja 言語パックの致命的な構文エラーを修正し、UI/UX の細部を改善しました。</p>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">変更内容</div>
         <ul class="modal-list">
-          <li>日本語のお知らせ文案に混入していた中国語表現を修正（硬编码 → ハードコード、标语 → キャッチコピー）。</li>
-          <li>繁体中文の履歴公告に含まれていた簡体字を修正（编码 → 編碼）。</li>
-          <li>index.html のメニューお知らせ meta のデフォルトバージョン表記を修正。</li>
+          <li>効果音システムを追加：移動、合体、出現、勝利、失敗、ボタンクリック、移動不可通知にそれぞれ独立した効果音を設定。</li>
+          <li>背景音楽システムを追加：Web Audio API で生成した穏やかな雰囲気音楽を再生。独立したオン/オフ切り替えに対応。</li>
+          <li>ゲーム設定に「オーディオ」セクションを追加。効果音と背景音楽を個別に制御可能。</li>
+          <li>zh-CN、zh-TW、ja の言語パックに含まれていた <code>announcementsHistoryCopy</code> 後の致命的な構文エラー（余分な <code>","},{</code>）を修正。これらの言語に切り替えた際の白画面クラッシュを解消。</li>
+          <li>グローバルなボタンクリックフィードバックを改善。すべてのインタラクティブなボタンがクリック音を発生。</li>
         </ul>
       </div>
     `,
@@ -2870,6 +2906,207 @@ const LANGUAGE_ENHANCEMENTS = {
   },
 };
 
+class AudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.sfxEnabled = false;
+    this.bgmEnabled = false;
+    this.masterGain = null;
+    this.sfxGain = null;
+    this.bgmGain = null;
+    this.bgmNodes = [];
+    this.bgmChordIndex = 0;
+    this.bgmTimer = null;
+    this.initialized = false;
+  }
+
+  init() {
+    if (this.initialized) return;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      this.ctx = new AudioContext();
+      this.masterGain = this.ctx.createGain();
+      this.masterGain.gain.value = 0.35;
+      this.masterGain.connect(this.ctx.destination);
+
+      this.sfxGain = this.ctx.createGain();
+      this.sfxGain.gain.value = 0.45;
+      this.sfxGain.connect(this.masterGain);
+
+      this.bgmGain = this.ctx.createGain();
+      this.bgmGain.gain.value = 0.12;
+      this.bgmGain.connect(this.masterGain);
+
+      this.initialized = true;
+    } catch (e) {
+      // Audio API not supported
+    }
+  }
+
+  ensureInit() {
+    if (!this.initialized) this.init();
+    if (this.ctx && this.ctx.state === "suspended") {
+      this.ctx.resume();
+    }
+  }
+
+  setSfxEnabled(value) {
+    this.sfxEnabled = value;
+    this.ensureInit();
+  }
+
+  setBgmEnabled(value) {
+    this.bgmEnabled = value;
+    this.ensureInit();
+    if (value) {
+      this.startBgm();
+    } else {
+      this.stopBgm();
+    }
+  }
+
+  playTone({ type = "sine", frequency = 440, duration = 0.1, gain = 0.3, attack = 0.01, release = 0.05 }) {
+    if (!this.initialized || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gainNode = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(frequency, now);
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(gain, now + attack);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + attack + duration + release);
+    osc.connect(gainNode);
+    gainNode.connect(this.sfxGain);
+    osc.start(now);
+    osc.stop(now + attack + duration + release + 0.02);
+    setTimeout(() => {
+      try { osc.disconnect(); gainNode.disconnect(); } catch (e) {}
+    }, (attack + duration + release + 0.05) * 1000);
+  }
+
+  playSfx(name) {
+    if (!this.sfxEnabled) return;
+    this.ensureInit();
+    if (!this.ctx) return;
+    switch (name) {
+      case "slide":
+        this.playTone({ type: "triangle", frequency: 180, duration: 0.06, gain: 0.22, attack: 0.003, release: 0.02 });
+        break;
+      case "merge": {
+        const now = this.ctx.currentTime;
+        const osc1 = this.ctx.createOscillator();
+        const g1 = this.ctx.createGain();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(523.25, now);
+        g1.gain.setValueAtTime(0, now);
+        g1.gain.linearRampToValueAtTime(0.28, now + 0.01);
+        g1.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+        osc1.connect(g1);
+        g1.connect(this.sfxGain);
+        osc1.start(now);
+        osc1.stop(now + 0.22);
+
+        const osc2 = this.ctx.createOscillator();
+        const g2 = this.ctx.createGain();
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(659.25, now + 0.04);
+        g2.gain.setValueAtTime(0, now + 0.04);
+        g2.gain.linearRampToValueAtTime(0.2, now + 0.05);
+        g2.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+        osc2.connect(g2);
+        g2.connect(this.sfxGain);
+        osc2.start(now + 0.04);
+        osc2.stop(now + 0.3);
+        break;
+      }
+      case "spawn":
+        this.playTone({ type: "sine", frequency: 987.77, duration: 0.05, gain: 0.18, attack: 0.003, release: 0.03 });
+        break;
+      case "win":
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+          setTimeout(() => this.playTone({ type: "sine", frequency: freq, duration: 0.18, gain: 0.28, attack: 0.008, release: 0.12 }), i * 100);
+        });
+        break;
+      case "lose":
+        [440.0, 369.99, 311.13, 220.0].forEach((freq, i) => {
+          setTimeout(() => this.playTone({ type: "triangle", frequency: freq, duration: 0.22, gain: 0.22, attack: 0.008, release: 0.18 }), i * 160);
+        });
+        break;
+      case "click":
+        this.playTone({ type: "square", frequency: 1400, duration: 0.015, gain: 0.06, attack: 0.001, release: 0.008 });
+        break;
+      case "blocked":
+        this.playTone({ type: "sawtooth", frequency: 110, duration: 0.08, gain: 0.12, attack: 0.003, release: 0.04 });
+        break;
+    }
+  }
+
+  startBgm() {
+    if (!this.bgmEnabled || !this.ctx) return;
+    this.stopBgm();
+    const chords = [
+      [220.0, 261.63, 329.63],
+      [174.61, 220.0, 261.63],
+      [261.63, 329.63, 392.0],
+      [196.0, 246.94, 293.66],
+    ];
+    const bassNotes = [110.0, 87.31, 130.81, 98.0];
+
+    const playChord = () => {
+      if (!this.bgmEnabled || !this.ctx) return;
+      const idx = this.bgmChordIndex % chords.length;
+      this.bgmChordIndex++;
+      const t = this.ctx.currentTime;
+
+      chords[idx].forEach((freq) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.06, t + 1.2);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
+        osc.connect(gain);
+        gain.connect(this.bgmGain);
+        osc.start(t);
+        osc.stop(t + 4.3);
+        this.bgmNodes.push(osc);
+      });
+
+      const bass = this.ctx.createOscillator();
+      const bassGain = this.ctx.createGain();
+      bass.type = "triangle";
+      bass.frequency.setValueAtTime(bassNotes[idx], t);
+      bassGain.gain.setValueAtTime(0, t);
+      bassGain.gain.linearRampToValueAtTime(0.05, t + 1.0);
+      bassGain.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
+      bass.connect(bassGain);
+      bassGain.connect(this.bgmGain);
+      bass.start(t);
+      bass.stop(t + 4.3);
+      this.bgmNodes.push(bass);
+
+      this.bgmTimer = setTimeout(playChord, 3500);
+    };
+
+    playChord();
+  }
+
+  stopBgm() {
+    if (this.bgmTimer) {
+      clearTimeout(this.bgmTimer);
+      this.bgmTimer = null;
+    }
+    this.bgmNodes.forEach((n) => {
+      try { n.stop(); n.disconnect(); } catch (e) {}
+    });
+    this.bgmNodes = [];
+  }
+}
+
+const audioEngine = new AudioEngine();
+
 const container = document.getElementById("canvas-container");
 const scoreEl = document.getElementById("score");
 const bestEl = document.getElementById("best");
@@ -3200,6 +3437,21 @@ function bindEvents() {
     }
     hideModal();
   });
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button, .menu-nav-button, .lobby-link, .choice-button, .language-option, .style-option, .tone-option");
+    if (btn && !btn.disabled) {
+      audioEngine.playSfx("click");
+    }
+  });
+
+  const resumeAudioOnInteraction = () => {
+    if (audioEngine.ctx && audioEngine.ctx.state === "suspended") {
+      audioEngine.ctx.resume();
+    }
+  };
+  document.addEventListener("click", resumeAudioOnInteraction, { once: true });
+  document.addEventListener("keydown", resumeAudioOnInteraction, { once: true });
 }
 
 function onKeyDown(e) {
@@ -3374,10 +3626,15 @@ function axisToVector(info) {
 function handleMove(dir) {
   const result = moveGrid(state.grid, dir);
   if (!result.moved) {
+    audioEngine.playSfx("blocked");
     if (!["professional", "competition"].includes(detectPresetMode())) {
       showToast(strings().toastBlocked);
     }
     return;
+  }
+  audioEngine.playSfx("slide");
+  if (result.scoreDelta > 0) {
+    audioEngine.playSfx("merge");
   }
   if (state.settings.showTimer && !state.timerRunning && !state.awaitingCompetitionStart) {
     startTimer();
@@ -3502,6 +3759,10 @@ function animateTransitions(transitions) {
     isMoving = false;
     checkGameState();
     return;
+  }
+
+  if (transitions.some((t) => t.spawn)) {
+    audioEngine.playSfx("spawn");
   }
 
   const now = performance.now();
@@ -3985,6 +4246,7 @@ function checkGameState() {
 }
 
 function showGameOverModal() {
+  audioEngine.playSfx("lose");
   stopTimer();
   const text = strings();
   openModal({
@@ -4001,6 +4263,7 @@ function showGameOverModal() {
 }
 
 function showWinModal() {
+  audioEngine.playSfx("win");
   const shouldResumeTimer = state.timerRunning && detectPresetMode() !== "competition";
   stopTimer();
   const text = strings();
@@ -4544,6 +4807,8 @@ function applySettings() {
       renderTilesImmediate();
     }
   }
+  audioEngine.setSfxEnabled(state.settings.sfxEnabled);
+  audioEngine.setBgmEnabled(state.settings.bgmEnabled);
   updateMenuSummaries();
   applyControlSensitivity();
   applyControlSmoothness();
@@ -5107,6 +5372,10 @@ function buildGameSettingsModalBody(text = strings()) {
     .filter((config) => config.group === "timer")
     .map(buildSettingRow)
     .join("");
+  const audioRows = SETTINGS_CONFIG
+    .filter((config) => config.group === "audio")
+    .map(buildSettingRow)
+    .join("");
 
   return `
     <div class="picker-layout">
@@ -5220,6 +5489,11 @@ function buildGameSettingsModalBody(text = strings()) {
         <div class="picker-grid-title">${text.settingsTimerTitle ?? "Timer"}</div>
         <p class="picker-card-copy">${text.settingsTimerIntro ?? ""}</p>
         <div class="settings-stack">${timerRows}</div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-grid-title">${text.settingsAudioTitle ?? "Audio"}</div>
+        <p class="picker-card-copy">${text.settingsAudioIntro ?? ""}</p>
+        <div class="settings-stack">${audioRows}</div>
       </div>
       <div class="picker-card">
         <div class="picker-grid-title">${text.resetDefaultsTitle ?? "Restore All Defaults"}</div>

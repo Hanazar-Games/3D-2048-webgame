@@ -6,7 +6,7 @@
 
 **A stylish 3D reinterpretation of classic 2048, rebuilt inside a 4×4×4 cube.**
 
-[![Version](https://img.shields.io/badge/version-V3.2.7-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
+[![Version](https://img.shields.io/badge/version-V3.2.8-c98a3d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Release Date](https://img.shields.io/badge/released-2026--05--08-8a5f2a?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Live Demo](https://img.shields.io/badge/Play-Live%20Website-b1453d?style=for-the-badge)](https://hzagaming.github.io/3D-2048-webgame/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.160.0-2a2017?style=for-the-badge)](https://threejs.org/)
@@ -308,12 +308,21 @@ The current build includes:
 
 ---
 
-## Latest Update: V3.2.7
+## Latest Update: V3.2.8
 
-**Release Date:** `2026-05-08`
-**Version:** `V3.2.7`
+**Release Date:** `2026-05-12`
+**Version:** `V3.2.8`
 
 ### Short Notes
+
+- Added a full SFX and BGM audio system powered by Web Audio API
+- Fixed fatal syntax errors in the zh-CN, zh-TW, and ja language packs
+- Added independent toggles for sound effects and background music in Game Settings
+- Improved global button click feedback with subtle audio cues
+
+### V3.2.7
+
+**Release Date:** `2026-05-08`
 
 - Fixed mixed Chinese vocabulary in Japanese announcements (硬编码 → ハードコード, 标语 → キャッチコピー)
 - Fixed simplified characters in Traditional Chinese announcement archive (编码 → 編碼)
